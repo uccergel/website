@@ -1,0 +1,34 @@
+---
+title: İlk Yazım
+excerpt: Bu siteyi tasarlamada da takip ettiğim Adem İlter'in YouTube kanalında yayımladığı "Kendi Web Sitemizi Yapalım" video serisinde kullandığı npm paketleri ve uygulamarı
+date: "2022-08-22"
+---
+Zaman zaman izlediğim videoları tekrar etmek istediğimde kullanılan npm paketlerinin kurulum şeklini ve linklerini unutabiliyorum.
+Unuttuğum zamanlarda tekrardan videonun içerisinde kullanılan yeri arayarak bulmaya çalışıyorum.
+Hangi video olduğunu hatırlamıyorsam o zaman bulmak tam bir eziyet oluyor.
+Benim gibi yeni başlayıp bu şekilde arama yapanların olabileceğini düşündüğüm için izlediğim video serilerinde hangi paketler kullanılmışsa bunları makale şeklinde yazmaya karar verdim.
+İlerleyen zamanda vakit bulursam hangi paketi hangi videonun hangi zamanında kullandığı ile ilgili bilgiyi paylaşacağım.
+İlk makale Adem ilterin [kendi web sitemizi yapalım](https://www.youtube.com/watch?v=Mn1u3FQScws&list=PLadt0EaV4m3CegrrLThwhYrlcz5rGbI8B&ab_channel=AdemIlter) video serisinde kullandığı npm paketleri ve uygulamarı
+Şu an için site eğitim ile aynı tasarıma sahip. Zamanla ve öğrendikçe değişiklikler yapmayı planlıyorum.
+Kurulumu yapılan paketler
+
+- [nextjs](https://nextjs.org/docs/getting-started) Hazırlamış olduğumuz sitenin çatısını oluşturmak için kullanıyoruz.
+- [prettier](https://prettier.io/docs/en/install.html) Yazıdğımız kodları .prettierrc dosyasında tanımladığımız şekilde düzenlemek için kullanıyoruz.
+- [tailwindcss](https://tailwindcss.com/docs/guides/nextjs) Tasarladığımız sitenin yakışıklı görünmesi için kullanıyoruz. :)
+- [tailwind typography](https://tailwindcss.com/docs/typography-plugin) Yazmış olduğumuz .mdx uzantılı makalelerin "prose" ile tailwind tarafından tanımlı özelliklerle düzenlenmesi için kullanıyoruz.
+- [next-mdx](https://github.com/shadcn/next-mdx) Makale yazmak için kullanıyoruz.
+  - Yazılan kodu [highlighter](https://react-syntax-highlighter.github.io/react-syntax-highlighter/demo/) [yapmak](https://github.com/react-syntax-highlighter/react-syntax-highlighter) için kullanıyoruz.
+Yazılan makale içerisinde eğer kod varsa bu kodun editör ve istenen arka plan renklerinde görünmesi için kullanıyoruz.
+- idleri uniq yapmak için [nanoid](https://github.com/ai/nanoid#readme) (npm install nanoid)
+- Tarihleri düzenlemek için [luxon](https://www.npmjs.com/package/luxon) (npm install luxon)
+- Hata yönetimi için [Hapi Boom](https://hapi.dev/module/boom/#faq)
+
+Kullanılan Uygulamalar
+
+- Deploy etmek için [vercel](https://vercel.com/)
+- [Auth0](https://auth0.com/)
+- Serverless Data için [Upstash](https://upstash.com/)
+  - [Redis](https://redis.io/commands/lpush/) komutları için
+
+**Not:** Yazılıma, en azından şimdilik, hobi olarak ve fırsat buldukça bakabildiğim için kullandığım terimlerde ya da kullanılan paketlerin yorumunda yanlışlık yapmış olabilirim. Eğer yanlışlık olduğunu düşünüyorsanız yazarak beni uyarabilir hatayı düzeltmemi sağlayabilirsiniz.
+
