@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import KitapKart from "../../components/KitapKart.astro";
+import { yeniden } from "../../utils";
+
+const kitaplar = yeniden(
+  (await getCollection("kitaplar")).filter((k) => !k.data.taslak),
+);
+---
+
+<BaseLayout
+  baslik="Kitaplar"
+  aciklama="Okuduğum kitaplar ve üzerlerine kısa yorumlarım."
+>
+  <section class="kapsayici sayfa-bas">
+    <p class="ust-baslik">Kitaplık</p>
+    <h1>Kitaplar</h1>
+    <p class="sayfa-aciklama">
+      Okuduklarım, okumakta olduklarım ve sıradakiler — kısa notlarımla.
+    </p>
+  </section>
+
+  <section class="kapsayici">
+    {
+      kitaplar.length > 0 ? (
+        <div class="raf">
+          {kitaplar.map((k) => (
+            <KitapKart kitap={k} />
+          ))}
+        </div>
+      ) : (
+        <p class="bos-not">Henüz kitap eklenmedi.</p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .sayfa-bas {
+    padding: 2.5rem 0 2rem;
+  }
+  .sayfa-bas h1 {
+    margin: 0.3rem 0 0.5rem;
+  }
+  .sayfa-aciklama {
+    color: var(--murekkep-soluk);
+    font-size: 1.1rem;
+    max-width: 40rem;
+    margin: 0;
+  }
+  .raf {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 2rem 1.5rem;
+  }
+  .bos-not {
+    color: var(--murekkep-soluk);
+    font-style: italic;
+  }
+</style>

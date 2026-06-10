@@ -1,0 +1,139 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import { tarihYaz, isoTarih } from "../../utils";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const yazilar = (await getCollection("yazilar")).filter(
+    (y) => !y.data.taslak,
+  );
+  return yazilar.map((yazi) => ({
+    params: { slug: yazi.id },
+    props: { yazi },
+  }));
+}) satisfies GetStaticPaths;
+
+const { yazi } = Astro.props;
+const { data } = yazi;
+const { Content } = await render(yazi);
+---
+
+<BaseLayout
+  baslik={data.baslik}
+  aciklama={data.ozet}
+  gorsel={data.kapak?.src ?? "/images/profil.jpg"}
+>
+  <article class="yazi">
+    <div class="kapsayici metin-kapsayici yazi-bas">
+      <a href="/yazilar" class="geri">
+        <Icon ad="ok" boyut={16} class="ters" /> Tüm yazılar
+      </a>
+      <h1>{data.baslik}</h1>
+      <div class="ust-bilgi">
+        <time datetime={isoTarih(data.tarih)}>
+          <Icon ad="takvim" boyut={15} /> {tarihYaz(data.tarih)}
+        </time>
+        {
+          data.etiketler.length > 0 && (
+            <span class="etiketler">
+              {data.etiketler.map((e) => (
+                <span class="etiket">#{e}</span>
+              ))}
+            </span>
+          )
+        }
+      </div>
+    </div>
+
+    {
+      data.kapak && (
+        <div class="kapsayici kapak-sar">
+          <Image
+            src={data.kapak}
+            alt={data.baslik}
+            width={1100}
+            height={620}
+            class="kapak"
+          />
+        </div>
+      )
+    }
+
+    <div class="kapsayici metin-kapsayici icerik">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .yazi-bas {
+    padding-top: 2rem;
+  }
+  .geri {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .geri :global(.ters) {
+    transform: rotate(180deg);
+  }
+  .yazi-bas h1 {
+    margin: 0 0 0.7rem;
+  }
+  .ust-bilgi {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    color: var(--murekkep-soluk);
+    font-size: 0.92rem;
+  }
+  .ust-bilgi time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 700;
+  }
+  .etiketler {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .kapak-sar {
+    margin: 2rem auto;
+  }
+  .kapak {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--cizgi);
+  }
+  .icerik {
+    margin-top: 2rem;
+    font-size: 1.12rem;
+  }
+  .icerik :global(h2) {
+    margin-top: 2rem;
+  }
+  .icerik :global(h3) {
+    margin-top: 1.5rem;
+  }
+  .icerik :global(img) {
+    border-radius: var(--radius);
+    margin: 1.5rem 0;
+    border: 1px solid var(--cizgi);
+  }
+  .icerik :global(ul),
+  .icerik :global(ol) {
+    padding-left: 1.3rem;
+  }
+  .icerik :global(li) {
+    margin-bottom: 0.4rem;
+  }
+</style>

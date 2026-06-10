@@ -1,0 +1,112 @@
+---
+// Basit, çizgi tabanlı SVG ikon seti.
+interface Props {
+  ad: string;
+  boyut?: number;
+  class?: string;
+}
+const { ad, boyut = 22, class: sinif } = Astro.props;
+
+const yollar: Record<string, string> = {
+  github:
+    "M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6 0-.6 0-.6 1 .1 1.6 1 1.6 1 .9 1.5 2.3 1.1 2.9.8.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.5-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .6 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.6 5 .3.3.6.9.6 1.8v2.7c0 .3.2.6.7.5A10 10 0 0 0 12 2Z",
+  linkedin:
+    "M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.5 8h4V24h-4V8Zm7 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V24h-4V8Z",
+  instagram: "",
+  mail: "",
+  code: "",
+  leather: "",
+  wood: "",
+  music: "",
+  star: "",
+  ok: "",
+  rss: "",
+  takvim: "",
+};
+
+// Çok parçalı / stroke tabanlı ikonlar ayrı işlenir.
+---
+
+{
+  ad === "github" || ad === "linkedin" ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={boyut}
+      height={boyut}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class={sinif}
+      aria-hidden="true"
+    >
+      <path d={yollar[ad]} />
+    </svg>
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={boyut}
+      height={boyut}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class={sinif}
+      aria-hidden="true"
+    >
+      {ad === "instagram" && (
+        <>
+          <rect x="2" y="2" width="20" height="20" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+        </>
+      )}
+      {ad === "mail" && (
+        <>
+          <rect x="2" y="4" width="20" height="16" rx="2" />
+          <path d="m3 7 9 6 9-6" />
+        </>
+      )}
+      {ad === "code" && <path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 4l-4 16" />}
+      {ad === "leather" && (
+        <>
+          <path d="M4 7a8 5 0 0 0 16 0 8 5 0 0 0-16 0Z" />
+          <path d="M4 7v6a8 5 0 0 0 16 0V7" />
+          <path d="M9 9.5v8M15 9.5v8" stroke-dasharray="1.5 2" />
+        </>
+      )}
+      {ad === "wood" && (
+        <>
+          <path d="M3 5h18M3 5c2 1 4 1 6 0s4-1 6 0 4 1 6 0M3 12c2 1 4 1 6 0s4-1 6 0 4 1 6 0M3 19c2 1 4 1 6 0s4-1 6 0 4 1 6 0" />
+        </>
+      )}
+      {ad === "music" && (
+        <>
+          <circle cx="6" cy="18" r="3" />
+          <circle cx="18" cy="16" r="3" />
+          <path d="M9 18V5l12-2v13" />
+        </>
+      )}
+      {ad === "star" && (
+        <path
+          d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.7l5.9-.9L12 3Z"
+          fill="currentColor"
+          stroke="none"
+        />
+      )}
+      {ad === "ok" && <path d="M5 12h14M13 6l6 6-6 6" />}
+      {ad === "rss" && (
+        <>
+          <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16" />
+          <circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none" />
+        </>
+      )}
+      {ad === "takvim" && (
+        <>
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <path d="M3 9h18M8 2v4M16 2v4" />
+        </>
+      )}
+    </svg>
+  )
+}

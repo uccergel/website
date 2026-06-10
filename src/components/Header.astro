@@ -1,0 +1,145 @@
+---
+import { SITE, NAV } from "../config";
+
+const yol = Astro.url.pathname.replace(/\/$/, "") || "/";
+const aktifMi = (hedef: string) =>
+  hedef === "/" ? yol === "/" : yol.startsWith(hedef);
+---
+
+<header class="site-ust">
+  <div class="kapsayici ust-ic">
+    <a href="/" class="marka">
+      <span class="marka-isaret">UC</span>
+      <span class="marka-ad">{SITE.isim}</span>
+    </a>
+
+    <input type="checkbox" id="menu-ac" class="menu-kutu" />
+    <label for="menu-ac" class="menu-dugme" aria-label="Menüyü aç/kapat">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="ana-menu" aria-label="Ana menü">
+      {
+        NAV.map((m) => (
+          <a
+            href={m.yol}
+            class:list={["menu-link", { aktif: aktifMi(m.yol) }]}
+            aria-current={aktifMi(m.yol) ? "page" : undefined}
+          >
+            {m.ad}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-ust {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--kagit) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--cizgi);
+  }
+  .ust-ic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 64px;
+  }
+  .marka {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--murekkep);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  .marka:hover {
+    text-decoration: none;
+    color: var(--murekkep);
+  }
+  .marka-isaret {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--terracotta);
+    color: #fff;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 0 var(--terracotta-koyu);
+  }
+  .ana-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+  .menu-link {
+    color: var(--murekkep-soluk);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+  }
+  .menu-link:hover {
+    color: var(--murekkep);
+    background: var(--kagit-koyu);
+    text-decoration: none;
+  }
+  .menu-link.aktif {
+    color: var(--terracotta-koyu);
+    background: var(--kagit-koyu);
+  }
+
+  /* Mobil menü */
+  .menu-kutu,
+  .menu-dugme {
+    display: none;
+  }
+  .menu-dugme {
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .menu-dugme span {
+    width: 24px;
+    height: 2px;
+    background: var(--murekkep);
+    border-radius: 2px;
+  }
+
+  @media (max-width: 720px) {
+    .menu-dugme {
+      display: flex;
+    }
+    .ana-menu {
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--kagit);
+      border-bottom: 1px solid var(--cizgi);
+      padding: 0.5rem 1rem 1rem;
+      display: none;
+    }
+    .menu-kutu:checked ~ .ana-menu {
+      display: flex;
+    }
+    .menu-link {
+      padding: 0.7rem 0.5rem;
+      border-bottom: 1px solid var(--cizgi);
+    }
+  }
+</style>

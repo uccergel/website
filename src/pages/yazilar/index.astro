@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import YaziKart from "../../components/YaziKart.astro";
+import { yeniden } from "../../utils";
+
+const yazilar = yeniden(
+  (await getCollection("yazilar")).filter((y) => !y.data.taslak),
+);
+---
+
+<BaseLayout
+  baslik="Yazılar"
+  aciklama="Yazılım, el işçiliği, müzik ve aklımdan geçenler üzerine yazılar."
+>
+  <section class="kapsayici sayfa-bas">
+    <p class="ust-baslik">Blog</p>
+    <h1>Yazılar</h1>
+    <p class="sayfa-aciklama">
+      Yazılım denemeleri, atölye notları, müzik ve aklıma takılanlar.
+    </p>
+  </section>
+
+  <section class="kapsayici">
+    {
+      yazilar.length > 0 ? (
+        <div class="izgara">
+          {yazilar.map((y) => (
+            <YaziKart yazi={y} />
+          ))}
+        </div>
+      ) : (
+        <p class="bos-not">Henüz yazı yok.</p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .sayfa-bas {
+    padding: 2.5rem 0 2rem;
+  }
+  .sayfa-bas h1 {
+    margin: 0.3rem 0 0.5rem;
+  }
+  .sayfa-aciklama {
+    color: var(--murekkep-soluk);
+    font-size: 1.1rem;
+    max-width: 40rem;
+    margin: 0;
+  }
+  .izgara {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .bos-not {
+    color: var(--murekkep-soluk);
+    font-style: italic;
+  }
+</style>

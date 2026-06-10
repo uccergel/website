@@ -1,0 +1,30 @@
+[
+  {
+    "id": "astro",
+    "baslik": "Astro Dokümantasyonu",
+    "url": "https://docs.astro.build",
+    "aciklama": "Bu blogun kurulu olduğu statik site üreticisinin resmi belgeleri.",
+    "kategori": "Yazılım"
+  },
+  {
+    "id": "mdn",
+    "baslik": "MDN Web Docs",
+    "url": "https://developer.mozilla.org",
+    "aciklama": "Web teknolojileri için en güvenilir referans.",
+    "kategori": "Yazılım"
+  },
+  {
+    "id": "leatherworker",
+    "baslik": "r/Leathercraft",
+    "url": "https://www.reddit.com/r/Leathercraft/",
+    "aciklama": "Deri işçiliği için ilham ve teknik paylaşımları.",
+    "kategori": "El İşçiliği"
+  },
+  {
+    "id": "drumeo",
+    "baslik": "Drumeo",
+    "url": "https://www.drumeo.com",
+    "aciklama": "Bateri çalışmak için dersler ve egzersizler.",
+    "kategori": "Müzik"
+  }
+]

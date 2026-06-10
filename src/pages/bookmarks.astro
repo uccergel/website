@@ -1,0 +1,147 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+
+const bookmarks = await getCollection("bookmarks");
+
+// Kategoriye göre grupla
+const gruplar = new Map<string, typeof bookmarks>();
+for (const b of bookmarks) {
+  const kat = b.data.kategori;
+  if (!gruplar.has(kat)) gruplar.set(kat, []);
+  gruplar.get(kat)!.push(b);
+}
+const sirali = [...gruplar.entries()].sort(([a], [b]) => a.localeCompare(b, "tr"));
+
+const alanAdi = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+};
+---
+
+<BaseLayout
+  baslik="Bookmark"
+  aciklama="Beğendiğim, işime yarayan ve paylaşmak istediğim bağlantılar."
+>
+  <section class="kapsayici sayfa-bas">
+    <p class="ust-baslik">Bağlantılar</p>
+    <h1>Bookmark</h1>
+    <p class="sayfa-aciklama">
+      Faydalı bulduğum siteler, araçlar ve okumalar — kategorilere ayrılmış
+      halde.
+    </p>
+  </section>
+
+  <section class="kapsayici">
+    {
+      sirali.length > 0 ? (
+        sirali.map(([kategori, ogeler]) => (
+          <div class="kategori">
+            <h2 class="kategori-baslik">{kategori}</h2>
+            <ul class="liste">
+              {ogeler.map((o) => (
+                <li>
+                  <a
+                    href={o.data.url}
+                    class="bm"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <span class="bm-ust">
+                      <span class="bm-baslik">{o.data.baslik}</span>
+                      <span class="bm-alan">
+                        {alanAdi(o.data.url)} <Icon ad="ok" boyut={14} />
+                      </span>
+                    </span>
+                    {o.data.aciklama && (
+                      <span class="bm-aciklama">{o.data.aciklama}</span>
+                    )}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      ) : (
+        <p class="bos-not">Henüz bağlantı eklenmedi.</p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .sayfa-bas {
+    padding: 2.5rem 0 2rem;
+  }
+  .sayfa-bas h1 {
+    margin: 0.3rem 0 0.5rem;
+  }
+  .sayfa-aciklama {
+    color: var(--murekkep-soluk);
+    font-size: 1.1rem;
+    max-width: 40rem;
+    margin: 0;
+  }
+  .kategori {
+    margin-bottom: 2.5rem;
+  }
+  .kategori-baslik {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--cizgi);
+  }
+  .liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0.85rem;
+  }
+  .bm {
+    display: block;
+    background: var(--kagit-koyu);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    color: var(--murekkep);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .bm:hover {
+    text-decoration: none;
+    border-color: var(--deri);
+    transform: translateY(-2px);
+  }
+  .bm-ust {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .bm-baslik {
+    font-weight: 700;
+  }
+  .bm-alan {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.78rem;
+    color: var(--terracotta);
+    white-space: nowrap;
+  }
+  .bm-aciklama {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--murekkep-soluk);
+  }
+  .bos-not {
+    color: var(--murekkep-soluk);
+    font-style: italic;
+  }
+</style>
