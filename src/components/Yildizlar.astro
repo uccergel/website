@@ -1,0 +1,33 @@
+---
+import Icon from "./Icon.astro";
+interface Props {
+  puan?: number;
+}
+const { puan } = Astro.props;
+---
+
+{
+  puan && (
+    <span class="yildizlar" aria-label={`${puan} / 5`} title={`${puan} / 5`}>
+      {[1, 2, 3, 4, 5].map((n) => (
+        <span class:list={["yildiz", { dolu: n <= puan }]}>
+          <Icon ad="star" boyut={16} />
+        </span>
+      ))}
+    </span>
+  )
+}
+
+<style>
+  .yildizlar {
+    display: inline-flex;
+    gap: 1px;
+  }
+  .yildiz {
+    color: var(--cizgi);
+    line-height: 0;
+  }
+  .yildiz.dolu {
+    color: var(--hardal);
+  }
+</style>

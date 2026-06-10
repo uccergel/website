@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout baslik="Sayfa bulunamadı">
+  <section class="kapsayici hata">
+    <p class="kod">404</p>
+    <h1>Bu sayfa buralarda değil.</h1>
+    <p class="aciklama">
+      Aradığın sayfa taşınmış, silinmiş ya da hiç var olmamış olabilir.
+    </p>
+    <a href="/" class="dugme">Anasayfaya dön</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hata {
+    text-align: center;
+    padding: 5rem 0;
+  }
+  .kod {
+    font-family: var(--serif);
+    font-size: clamp(4rem, 16vw, 9rem);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--terracotta);
+    margin: 0;
+  }
+  .aciklama {
+    color: var(--murekkep-soluk);
+    max-width: 30rem;
+    margin: 0.5rem auto 1.75rem;
+  }
+</style>
