@@ -26,7 +26,7 @@ function BlogCard({ post, index }: BlogCardProps) {
           {post.frontmatter.tags.map((tag) => (
             <span
               key={tag}
-              className="island-kicker rounded-full bg-[var(--chip-bg)] px-3 py-0.5 text-xs"
+              className="island-kicker rounded-full bg-(--chip-bg) px-3 py-0.5 text-xs"
             >
               {tag}
             </span>
@@ -34,15 +34,15 @@ function BlogCard({ post, index }: BlogCardProps) {
         </div>
       )}
       {/* Başlık */}
-      <h2 className="mb-2 text-lg font-semibold text-[var(--sea-ink)]">
+      <h2 className="mb-2 text-lg font-semibold text-(--sea-ink)">
         {post.frontmatter.title}
       </h2>
       {/* Açıklama — 2 satırda kesilir */}
-      <p className="m-0 line-clamp-2 text-sm leading-relaxed text-[var(--sea-ink-soft)]">
+      <p className="m-0 line-clamp-2 text-sm leading-relaxed text-(--sea-ink-soft)">
         {post.frontmatter.description}
       </p>
       {/* Tarih */}
-      <p className="mt-4 text-xs text-[var(--sea-ink-soft)]">
+      <p className="mt-4 text-xs text-(--sea-ink-soft)">
         {new Date(post.frontmatter.date).toLocaleDateString('tr-TR', {
           year: 'numeric',
           month: 'long',
@@ -63,10 +63,10 @@ function RouteComponent() {
       {/* Sayfa Başlığı */}
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
         <p className="island-kicker mb-2">Blog</p>
-        <h1 className="display-title text-4xl font-bold text-[var(--sea-ink)] sm:text-5xl">
+        <h1 className="display-title text-4xl font-bold text-(--sea-ink) sm:text-5xl">
           Yazılarım
         </h1>
-        <p className="mt-3 max-w-xl text-base leading-8 text-[var(--sea-ink-soft)]">
+        <p className="mt-3 max-w-xl text-base leading-8 text-(--sea-ink-soft)">
           Yazılım, kimya mühendisliği ve öğrendiklerim üzerine notlar.
         </p>
         <span className="island-kicker mt-4 block text-xs">
@@ -84,7 +84,7 @@ function RouteComponent() {
       ) : (
         // Boş durum — henüz yazı yoksa gösterilir
         <section className="island-shell mt-8 rounded-2xl p-12 text-center">
-          <p className="text-[var(--sea-ink-soft)]">
+          <p className="text-(--sea-ink-soft)">
             Henüz yazı yok. Yakında görüşürüz!
           </p>
         </section>
