@@ -49,7 +49,7 @@ function RouteComponent() {
       ),
       a: (props: ComponentPropsWithoutRef<'a'>) => (
         <a
-          className="text-(--lagoon-deep)underline decoration-(--lagoon-deep)/40 underline-offset-2 transition hover:text-(--lagoon)"
+          className="text-(--lagoon-deep) underline decoration-(--lagoon-deep)/40 underline-offset-2 transition hover:text-(--lagoon)"
           {...props}
         />
       ),

@@ -1,8 +1,6 @@
 import { BOOKMARK_COLLECTIONS } from '#/config/bookmarks'
 import { getRaindropsByCollections } from '#/lib/raindrop'
-import type { Raindrop } from '#/lib/raindrop'
 import { createFileRoute } from '@tanstack/react-router'
-import { ExternalLinkIcon } from 'lucide-react'
 
 // ─── LOADER ──────────────────────────────────────────────────────────────────
 // Tüm koleksiyonları paralel olarak sunucu tarafında fetch ediyoruz.
@@ -19,9 +17,6 @@ export const Route = createFileRoute('/bookmarks/')({
 
 function RouteComponent() {
   const { groups } = Route.useLoaderData()
-  console.log('[DEBUG] groups:', groups)
-  console.log('[DEBUG] groups[0]?.items:', groups[0]?.items)
-  console.log('[DEBUG] items length:', groups[0]?.items?.length)
 
   const totalCount = groups.reduce((acc, col) => acc + col.items.length, 0)
 

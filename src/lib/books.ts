@@ -2,7 +2,7 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import { bookEntries } from '#/content/books'
-import { fetchBooksMetadata } from '#/lib/openlibrary'
+import { fetchBooksMetadata } from '#/lib/openLibrary'
 import type { Book, ReadingStatus } from '#/content/books'
 
 // ─── 1. QUERY OPTIONS ────────────────────────────────────────────────────────

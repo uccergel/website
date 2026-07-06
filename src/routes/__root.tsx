@@ -3,14 +3,10 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
 import { AppSidebar } from '../components/app-sidebar.tsx'
-import {SidebarProvider} from "../components/ui/sidebar.tsx"
-import StoreDevtools from '../lib/demo-store-devtools'
-
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+import { SidebarInset, SidebarProvider } from '../components/ui/sidebar.tsx'
 
 import appCss from '../styles.css?url'
 
@@ -19,7 +15,6 @@ import type { QueryClient } from '@tanstack/react-query'
 interface MyRouterContext {
   queryClient: QueryClient
 }
-
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
@@ -54,26 +49,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body className="font-sans antialiased wrap:anywhere selection:bg-[rgba(79,184,178,0.24)]">
         <SidebarProvider>
           <AppSidebar />
-
-          <div style={{ display: 'flex' }}>
-            <div>
-              {children}
-              <Footer />
-            </div>
-          </div>
+          <SidebarInset>
+            {children}
+            <Footer />
+          </SidebarInset>
         </SidebarProvider>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
           }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-            StoreDevtools,
-            TanStackQueryDevtools,
-          ]}
         />
         <Scripts />
       </body>
