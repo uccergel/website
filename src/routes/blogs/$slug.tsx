@@ -1,9 +1,85 @@
 // src/routes/blogs/$slug.tsx
 import { getPostBySlug } from '#/lib/blog'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
-import { useMemo } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
 import { MDXProvider } from '@mdx-js/react'
+
+// ─── MDX İÇİN ÖZEL HTML BİLEŞENLERİ ─────────────────────────────────────────
+// MDXProvider bu map'i alır ve MDX içindeki HTML elementlerini
+// aşağıdaki bileşenlerle replace eder.
+// ComponentPropsWithoutRef<'h1'> sayesinde tüm native HTML
+// attribute'larını (id, className, vs.) otomatik olarak alırlar.
+
+// ─── MDX BILEŞEN MAPPING'İ ───────────────────────────────────────────────────
+// Bu nesne hiçbir zaman değişmez — component dışında, modül seviyesinde tanımlı.
+// React'ın memoize mekanizmasına gerek yok; modül import edildiğinde
+// bir kez oluşturulur ve bellekte tek bir referans olarak kalır.
+
+type H = ComponentPropsWithoutRef<'h1'>
+type P = ComponentPropsWithoutRef<'p'>
+type A = ComponentPropsWithoutRef<'a'>
+type UL = ComponentPropsWithoutRef<'ul'>
+type OL = ComponentPropsWithoutRef<'ol'>
+type LI = ComponentPropsWithoutRef<'li'>
+type BQ = ComponentPropsWithoutRef<'blockquote'>
+type Code = ComponentPropsWithoutRef<'code'>
+type Pre = ComponentPropsWithoutRef<'pre'>
+
+const mdxComponents = {
+  h1: (props: H) => (
+    <h1
+      className="display-title mb-6 text-3xl font-bold text-sea-ink sm:text-4xl"
+      {...props}
+    />
+  ),
+  h2: (props: H) => (
+    <h2 className="mb-4 mt-10 text-2xl font-semibold text-sea-ink" {...props} />
+  ),
+  h3: (props: H) => (
+    <h3 className="mb-3 mt-8 text-xl font-semibold text-sea-ink" {...props} />
+  ),
+  p: (props: P) => (
+    <p className="mb-5 leading-8 text-sea-ink-soft" {...props} />
+  ),
+  a: (props: A) => (
+    <a
+      className="text-(--lagoon-deep) underline decoration-(--lagoon-deep)/40 underline-offset-2 transition hover:text-(--lagoon)"
+      {...props}
+    />
+  ),
+  ul: (props: UL) => (
+    <ul
+      className="mb-5 list-disc space-y-2 pl-6 text-(--sea-ink-soft)"
+      {...props}
+    />
+  ),
+  ol: (props: OL) => (
+    <ol
+      className="mb-5 list-decimal space-y-2 pl-6 text-(--sea-ink-soft)"
+      {...props}
+    />
+  ),
+  li: (props: LI) => <li className="leading-7" {...props} />,
+  blockquote: (props: BQ) => (
+    <blockquote
+      className="my-6 border-l-4 border-(--lagoon) pl-5 italic text-(--sea-ink-soft)"
+      {...props}
+    />
+  ),
+  code: (props: Code) => (
+    <code
+      className="rounded-md border border-(--line) bg-(--surface-strong) px-1.5 py-0.5 text-sm text-(--sea-ink)"
+      {...props}
+    />
+  ),
+  pre: (props: Pre) => (
+    <pre
+      className="my-6 overflow-x-auto rounded-xl border border-(--line) bg-[#1d2e45] p-5 text-sm leading-relaxed text-[#e8efff]"
+      {...props}
+    />
+  ),
+  hr: () => <hr className="my-10 border-(--line)" />,
+}
 
 export const Route = createFileRoute('/blogs/$slug')({
   loader: ({ params }) => {
@@ -17,83 +93,6 @@ export const Route = createFileRoute('/blogs/$slug')({
 
 function RouteComponent() {
   const { frontmatter, Component } = Route.useLoaderData()
-
-  // ─── MDX İÇİN ÖZEL HTML BİLEŞENLERİ ─────────────────────────────────────────
-  // MDXProvider bu map'i alır ve MDX içindeki HTML elementlerini
-  // aşağıdaki bileşenlerle replace eder.
-  // ComponentPropsWithoutRef<'h1'> sayesinde tüm native HTML
-  // attribute'larını (id, className, vs.) otomatik olarak alırlar.
-
-  const mdxComponents = useMemo(
-    () => ({
-      h1: (props: ComponentPropsWithoutRef<'h1'>) => (
-        <h1
-          className="display-title mb-6 text-3xl font-bold text-sea-ink sm:text-4xl"
-          {...props}
-        />
-      ),
-      h2: (props: ComponentPropsWithoutRef<'h2'>) => (
-        <h2
-          className="mb-4 mt-10 text-2xl font-semibold text-sea-ink"
-          {...props}
-        />
-      ),
-      h3: (props: ComponentPropsWithoutRef<'h3'>) => (
-        <h3
-          className="mb-3 mt-8 text-xl font-semibold text-sea-ink"
-          {...props}
-        />
-      ),
-      p: (props: ComponentPropsWithoutRef<'p'>) => (
-        <p className="mb-5 leading-8 text-sea-ink-soft" {...props} />
-      ),
-      a: (props: ComponentPropsWithoutRef<'a'>) => (
-        <a
-          className="text-(--lagoon-deep) underline decoration-(--lagoon-deep)/40 underline-offset-2 transition hover:text-(--lagoon)"
-          {...props}
-        />
-      ),
-      ul: (props: ComponentPropsWithoutRef<'ul'>) => (
-        <ul
-          className="mb-5 list-disc space-y-2 pl-6 text-(--sea-ink-soft)"
-          {...props}
-        />
-      ),
-      ol: (props: ComponentPropsWithoutRef<'ol'>) => (
-        <ol
-          className="mb-5 list-decimal space-y-2 pl-6 text-(--sea-ink-soft)"
-          {...props}
-        />
-      ),
-      li: (props: ComponentPropsWithoutRef<'li'>) => (
-        <li className="leading-7" {...props} />
-      ),
-      blockquote: (props: ComponentPropsWithoutRef<'blockquote'>) => (
-        <blockquote
-          className="my-6 border-l-4 border-(--lagoon) pl-5 italic text-(--sea-ink-soft)"
-          {...props}
-        />
-      ),
-      // Inline code: `kod`
-      code: (props: ComponentPropsWithoutRef<'code'>) => (
-        <code
-          className="rounded-md border border-(--line) bg-(--surface-strong) px-1.5 py-0.5 text-sm text-(--sea-ink)"
-          {...props}
-        />
-      ),
-      // Kod bloğu: ```dil\n...\n```
-      // rehype-highlight bu bloğa zaten syntax sınıfları ekler,
-      // biz sadece görsel kabuğu tasarlıyoruz.
-      pre: (props: ComponentPropsWithoutRef<'pre'>) => (
-        <pre
-          className="my-6 overflow-x-auto rounded-xl border border-(--line) bg-[#1d2e45] p-5 text-sm leading-relaxed text-[#e8efff]"
-          {...props}
-        />
-      ),
-      hr: () => <hr className="my-10 border-(--line)" />,
-    }),
-    [],
-  )
 
   return (
     <main className="page-wrap px-4 pb-16 pt-14">

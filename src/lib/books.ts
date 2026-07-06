@@ -33,7 +33,7 @@ export const booksQueryOptions = queryOptions({
     // bu yüzden metadata[entry.isbn] her zaman tanımlıdır
     return bookEntries.map((entry) => ({
       ...entry,
-      ...metadata[entry.isbn]!,
+      ...metadata[entry.isbn],
     }))
   },
   // Kitap metadata'sı nadiren değişir — 24 saat boyunca taze say
