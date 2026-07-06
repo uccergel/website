@@ -68,8 +68,9 @@ async function raindropFetch<T>(endpoint: string): Promise<T> {
   })
 
   if (!response.ok) {
+    const body = await response.text()
     throw new RaindropApiError(
-      `Raindrop API error: ${response.statusText}`,
+      `Raindrop API error: ${response.status} - ${response.statusText} - ${body}`,
       response.status,
     )
   }
