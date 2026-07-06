@@ -13,6 +13,7 @@ export function NavMain({
     url: string
     icon: React.ReactNode
     isActive?: boolean
+    bagde: string
   }[]
 }) {
   return (
