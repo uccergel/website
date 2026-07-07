@@ -8,16 +8,16 @@ const STATUS_CONFIG: Record<
 > = {
   active: {
     label: 'Aktif',
-    className: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    className: 'bg-emerald-50 text-emerald-700 border border-emerald-200'
   },
   completed: {
     label: 'Tamamlandı',
-    className: 'bg-blue-50 text-blue-700 border border-blue-200',
+    className: 'bg-blue-50 text-blue-700 border border-blue-200'
   },
   archived: {
     label: 'Arşivlendi',
-    className: 'bg-gray-50 text-gray-600 border border-gray-200',
-  },
+    className: 'bg-gray-50 text-gray-600 border border-gray-200'
+  }
 }
 
 export const Route = createFileRoute('/projects/$slug')({
@@ -32,7 +32,7 @@ export const Route = createFileRoute('/projects/$slug')({
     return { project }
   },
   component: RouteComponent,
-  notFoundComponent: ProjectNotFound,
+  notFoundComponent: ProjectNotFound
 })
 
 function RouteComponent() {
@@ -230,10 +230,10 @@ function ProjectNotFound() {
     <main className="page-wrap px-4 pb-8 pt-14">
       <section className="island-shell rounded-2xl p-10 text-center">
         <p className="island-kicker mb-3">404</p>
-        <h1 className="display-title text-2xl font-bold text-[var(--sea-ink)]">
+        <h1 className="display-title text-2xl font-bold text-(--sea-ink)">
           Proje Bulunamadı
         </h1>
-        <p className="mt-3 text-[var(--sea-ink-soft)]">
+        <p className="mt-3 text-(--sea-ink-soft)">
           Aradığınız proje mevcut değil veya kaldırılmış olabilir.
         </p>
         <Link

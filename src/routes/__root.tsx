@@ -1,7 +1,7 @@
 import {
   HeadContent,
   Scripts,
-  createRootRouteWithContext,
+  createRootRouteWithContext
 } from '@tanstack/react-router'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
@@ -11,6 +11,7 @@ import { SidebarInset, SidebarProvider } from '../components/ui/sidebar.tsx'
 import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
+import Header from '#/components/header.tsx'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -20,43 +21,42 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
     meta: [
       {
-        charSet: 'utf-8',
+        charSet: 'utf-8'
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        content: 'width=device-width, initial-scale=1'
       },
       {
-        title: 'Uğur Cem Çergel',
-      },
+        title: 'Uğur Cem Çergel'
+      }
     ],
     links: [
       {
         rel: 'stylesheet',
-        href: appCss,
-      },
-    ],
+        href: appCss
+      }
+    ]
   }),
-  shellComponent: RootDocument,
+  shellComponent: RootDocument
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="tr" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body className="font-sans antialiased wrap:anywhere selection:bg-[rgba(79,184,178,0.24)]">
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            {children}
-            <Footer />
-          </SidebarInset>
-        </SidebarProvider>
+        <div className="flex min-h-svh flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
+
         <TanStackDevtools
           config={{
-            position: 'bottom-right',
+            position: 'bottom-right'
           }}
         />
         <Scripts />
