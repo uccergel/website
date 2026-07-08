@@ -81,7 +81,7 @@ const mdxComponents = {
   hr: () => <hr className="my-10 border-(--line)" />,
 }
 
-export const Route = createFileRoute('/blogs/$slug')({
+export const Route = createFileRoute('/blog/$slug')({
   loader: ({ params }) => {
     const post = getPostBySlug(params.slug)
     // null gelirse TanStack Router 404 sayfasına yönlendirir

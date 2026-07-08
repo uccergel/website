@@ -6,7 +6,7 @@ import ThemeToggle from './ThemeToggle'
 // Projects route'u henüz yok, onu sonraki adımda ekleyeceğiz.
 const NAV_LINKS = [
   { label: 'Hakkımda', to: '/about' },
-  { label: 'Blog', to: '/blogs' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Projeler', to: '/projects' }
 ] as const
 

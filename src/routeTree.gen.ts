@@ -13,9 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
 import { Route as BooksIndexRouteImport } from './routes/books/index'
 import { Route as BookmarksIndexRouteImport } from './routes/bookmarks/index'
-import { Route as BlogsIndexRouteImport } from './routes/blogs/index'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
-import { Route as BlogsSlugRouteImport } from './routes/blogs/$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -37,9 +38,14 @@ const BookmarksIndexRoute = BookmarksIndexRouteImport.update({
   path: '/bookmarks/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogsIndexRoute = BlogsIndexRouteImport.update({
-  id: '/blogs/',
-  path: '/blogs/',
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutIndexRoute = AboutIndexRouteImport.update({
+  id: '/about/',
+  path: '/about/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
@@ -47,26 +53,28 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   path: '/projects/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogsSlugRoute = BlogsSlugRouteImport.update({
-  id: '/blogs/$slug',
-  path: '/blogs/$slug',
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blogs/$slug': typeof BlogsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/blogs/': typeof BlogsIndexRoute
+  '/about/': typeof AboutIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/bookmarks/': typeof BookmarksIndexRoute
   '/books/': typeof BooksIndexRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blogs/$slug': typeof BlogsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/blogs': typeof BlogsIndexRoute
+  '/about': typeof AboutIndexRoute
+  '/blog': typeof BlogIndexRoute
   '/bookmarks': typeof BookmarksIndexRoute
   '/books': typeof BooksIndexRoute
   '/projects': typeof ProjectsIndexRoute
@@ -74,9 +82,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blogs/$slug': typeof BlogsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/blogs/': typeof BlogsIndexRoute
+  '/about/': typeof AboutIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/bookmarks/': typeof BookmarksIndexRoute
   '/books/': typeof BooksIndexRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -85,27 +94,30 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/blogs/$slug'
+    | '/blog/$slug'
     | '/projects/$slug'
-    | '/blogs/'
+    | '/about/'
+    | '/blog/'
     | '/bookmarks/'
     | '/books/'
     | '/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/blogs/$slug'
+    | '/blog/$slug'
     | '/projects/$slug'
-    | '/blogs'
+    | '/about'
+    | '/blog'
     | '/bookmarks'
     | '/books'
     | '/projects'
   id:
     | '__root__'
     | '/'
-    | '/blogs/$slug'
+    | '/blog/$slug'
     | '/projects/$slug'
-    | '/blogs/'
+    | '/about/'
+    | '/blog/'
     | '/bookmarks/'
     | '/books/'
     | '/projects/'
@@ -113,9 +125,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogsSlugRoute: typeof BlogsSlugRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
-  BlogsIndexRoute: typeof BlogsIndexRoute
+  AboutIndexRoute: typeof AboutIndexRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   BookmarksIndexRoute: typeof BookmarksIndexRoute
   BooksIndexRoute: typeof BooksIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
@@ -151,11 +164,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookmarksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blogs/': {
-      id: '/blogs/'
-      path: '/blogs'
-      fullPath: '/blogs/'
-      preLoaderRoute: typeof BlogsIndexRouteImport
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/': {
+      id: '/about/'
+      path: '/about'
+      fullPath: '/about/'
+      preLoaderRoute: typeof AboutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects/$slug': {
@@ -165,11 +185,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blogs/$slug': {
-      id: '/blogs/$slug'
-      path: '/blogs/$slug'
-      fullPath: '/blogs/$slug'
-      preLoaderRoute: typeof BlogsSlugRouteImport
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -177,9 +197,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogsSlugRoute: BlogsSlugRoute,
+  BlogSlugRoute: BlogSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
-  BlogsIndexRoute: BlogsIndexRoute,
+  AboutIndexRoute: AboutIndexRoute,
+  BlogIndexRoute: BlogIndexRoute,
   BookmarksIndexRoute: BookmarksIndexRoute,
   BooksIndexRoute: BooksIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
