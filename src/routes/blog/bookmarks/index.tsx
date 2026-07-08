@@ -22,9 +22,8 @@ function RouteComponent() {
       <ContentNav /> {/* ← YENİ */}
       {/* ── Sayfa Başlığı ─────────────────────────────────── */}
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <p className="island-kicker mb-2">Yer İmleri</p>
-        <h1 className="display-title text-4xl font-bold text-(--sea-ink) sm:text-5xl">
-          Takip Ettiklerim
+        <h1 className="display-title text-4xl text-(--sea-ink) sm:text-5xl mb-2">
+          Yer İmleri
         </h1>
         <p className="mt-3 max-w-xl text-base leading-8 text-(--sea-ink-soft)">
           Düzenli olarak takip ettiğim siteler, araçlar ve kaynaklar.

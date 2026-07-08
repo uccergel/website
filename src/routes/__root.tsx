@@ -5,8 +5,6 @@ import {
 } from '@tanstack/react-router'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
-import { AppSidebar } from '../components/app-sidebar.tsx'
-import { SidebarInset, SidebarProvider } from '../components/ui/sidebar.tsx'
 
 import appCss from '../styles.css?url'
 

@@ -10,13 +10,13 @@ export const projects: Project[] = [
       'Type-safe routing, server-side rendering ve modern UI bileşenleriyle hazırlanmış kişisel alan. Yazılar, kitaplar ve yer imlerini barındırıyor.',
     tags: ['React', 'TypeScript', 'TailwindCSS'],
     status: 'active',
-    startDate: '2025-01',
+    startDate: '2026-06',
     links: {
       github: 'https://github.com/uccergel/uccergel.github.io',
-      live: 'https://uccergel.github.io',
+      live: 'https://uccergel.github.io'
     },
-    featured: true,
-  },
+    featured: true
+  }
   // Daha fazla proje ekleyebilirsin...
 ]
 

@@ -45,27 +45,27 @@ export interface Book extends BookEntry, OpenLibraryData {}
  */
 export const bookEntries: BookEntry[] = [
   {
-    isbn: '9780743273565',
-    status: 'read',
-    rating: 5,
-    note: "Harika bir roman. Fitzgerald'ın dili çok etkileyici.",
-    finishedAt: '2024-03',
-    startedAt: '2024-02',
-  },
-  {
-    isbn: '9780062316097',
+    isbn: '9786051981123',
     status: 'want-to-read',
     rating: null,
     note: null,
     finishedAt: null,
-    startedAt: null,
+    startedAt: '2026-06'
   },
   {
-    isbn: '9780525559474',
-    status: 'reading',
+    isbn: '09756510102',
+    status: 'want-to-read',
     rating: null,
-    note: 'Yavaş yavaş okuyorum, çok yoğun bir içerik.',
+    note: null,
     finishedAt: null,
-    startedAt: '2024-11',
+    startedAt: '2026-06'
   },
+  {
+    isbn: '9786256767355',
+    status: 'want-to-read',
+    rating: null,
+    note: null,
+    finishedAt: null,
+    startedAt: '2026-06'
+  }
 ]

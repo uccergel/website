@@ -14,13 +14,13 @@ function RouteComponent() {
     <main className="page-wrap px-4 py-12">
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
         <p className="island-kicker mb-3">Projeler</p>
-        <h1 className="display-title text-3xl font-bold text-[var(--sea-ink)] sm:text-4xl">
+        <h1 className="display-title text-3xl font-bold text-(--sea-ink) sm:text-4xl">
           Yaptıklarım
         </h1>
-        <p className="mt-3 max-w-xl text-[var(--sea-ink-soft)]">
+        <p className="mt-3 max-w-xl text-(--sea-ink-soft)">
           Geliştirdiğim yazılım projeleri, kişisel denemeler ve açık kaynak
           katkıları.{' '}
-          <span className="font-medium text-[var(--sea-ink)]">
+          <span className="font-medium text-(--sea-ink)">
             {activeCount} aktif / {totalCount} toplam
           </span>
         </p>

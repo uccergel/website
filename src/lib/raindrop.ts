@@ -1,4 +1,5 @@
 // src/lib/raindrop.ts
+import { env } from '#/lib/env'
 
 // ─── 1. TİP TANIMLARI ────────────────────────────────────────────────────────
 
@@ -33,7 +34,7 @@ export interface RaindropListResponse {
 export class RaindropApiError extends Error {
   constructor(
     message: string,
-    public readonly status?: number,
+    public readonly status?: number
   ) {
     super(message)
     this.name = 'RaindropApiError'
@@ -52,26 +53,26 @@ const RAINDROP_BASE_URL = 'https://api.raindrop.io/rest/v1'
  * Token hiçbir zaman client'a gönderilmez.
  */
 async function raindropFetch<T>(endpoint: string): Promise<T> {
-  const token = process.env['RAINDROP_TOKEN']
+  const token = env.RAINDROP_TOKEN
 
   if (!token) {
     throw new RaindropApiError(
-      'RAINDROP_TOKEN environment variable is not set.',
+      'RAINDROP_TOKEN environment variable is not set.'
     )
   }
 
   const response = await fetch(`${RAINDROP_BASE_URL}${endpoint}`, {
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   })
 
   if (!response.ok) {
     const body = await response.text()
     throw new RaindropApiError(
       `Raindrop API error: ${response.status} - ${response.statusText} - ${body}`,
-      response.status,
+      response.status
     )
   }
 
@@ -87,15 +88,15 @@ async function raindropFetch<T>(endpoint: string): Promise<T> {
  *   const bookmarks = await getRaindropsByCollection(28498046)
  */
 export async function getRaindropsByCollection(
-  collectionId: number,
+  collectionId: number
 ): Promise<Raindrop[]> {
   const data = await raindropFetch<RaindropListResponse>(
-    `/raindrops/${collectionId}`,
+    `/raindrops/${collectionId}`
   )
 
   if (!data.result) {
     throw new RaindropApiError(
-      `Failed to fetch raindrops for collection ${collectionId}`,
+      `Failed to fetch raindrops for collection ${collectionId}`
     )
   }
 
@@ -115,7 +116,7 @@ export async function getRaindropsByCollection(
  *   ])
  */
 export async function getRaindropsByCollections(
-  collections: Array<{ id: number; label: string; emoji?: string }>,
+  collections: Array<{ id: number; label: string; emoji?: string }>
 ): Promise<
   Array<{ id: number; label: string; emoji?: string; items: Raindrop[] }>
 > {
@@ -123,7 +124,7 @@ export async function getRaindropsByCollections(
     collections.map(async (collection) => {
       const items = await getRaindropsByCollection(collection.id)
       return { ...collection, items }
-    }),
+    })
   )
 
   return results

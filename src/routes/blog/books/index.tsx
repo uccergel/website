@@ -149,12 +149,11 @@ function RouteComponent() {
       <ContentNav /> {/* ← YENİ */}
       {/* ── Sayfa Başlığı ─────────────────────────────────── */}
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <p className="island-kicker mb-2">Kitaplık</p>
-        <h1 className="display-title text-4xl font-bold text-(--sea-ink) sm:text-5xl">
-          Kitaplarım
+        <h1 className="display-title text-4xl sm:text-5xl text-(--sea-ink) mb-2">
+          Kitaplık
         </h1>
         <p className="mt-3 max-w-xl text-base leading-8 text-(--sea-ink-soft)">
-          Okuduğum, okuduğum ve okumak istediğim kitaplar.
+          Okuduğum, okumak istediğim kitaplar.
         </p>
         <div className="mt-4">
           <StatsBar {...stats} />

@@ -11,5 +11,5 @@ export interface CollectionConfig {
  * Yeni koleksiyon eklemek için sadece bu diziye bir satır ekle.
  */
 export const BOOKMARK_COLLECTIONS: CollectionConfig[] = [
-  { id: 28498046, label: 'Takip Edilen Siteler', emoji: '🔖' },
+  { id: 72639556, label: 'Takip Edilen Siteler', emoji: '🔖' }
 ]

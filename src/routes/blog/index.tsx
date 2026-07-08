@@ -9,14 +9,9 @@ import { BOOKMARK_COLLECTIONS } from '#/config/bookmarks'
 
 export const Route = createFileRoute('/blog/')({
   loader: async ({ context: { queryClient } }) => {
-    const firstCollection = BOOKMARK_COLLECTIONS[0]
-
-    // Promise.all → üç kaynak paralel olarak çalışır
     const [books, bookmarks] = await Promise.all([
       queryClient.ensureQueryData(booksQueryOptions),
-      firstCollection
-        ? getRaindropsByCollection(firstCollection.id)
-        : Promise.resolve([])
+      getRaindropsByCollection(BOOKMARK_COLLECTIONS[0].id)
     ])
 
     return {
