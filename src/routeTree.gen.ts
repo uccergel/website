@@ -11,12 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
-import { Route as BooksIndexRouteImport } from './routes/books/index'
-import { Route as BookmarksIndexRouteImport } from './routes/bookmarks/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
-import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as BlogPostsIndexRouteImport } from './routes/blog/posts/index'
+import { Route as BlogBooksIndexRouteImport } from './routes/blog/books/index'
+import { Route as BlogBookmarksIndexRouteImport } from './routes/blog/bookmarks/index'
+import { Route as BlogPostsSlugRouteImport } from './routes/blog/posts/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -26,16 +27,6 @@ const IndexRoute = IndexRouteImport.update({
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/projects/',
   path: '/projects/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BooksIndexRoute = BooksIndexRouteImport.update({
-  id: '/books/',
-  path: '/books/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BookmarksIndexRoute = BookmarksIndexRouteImport.update({
-  id: '/bookmarks/',
-  path: '/bookmarks/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -53,85 +44,107 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   path: '/projects/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/blog/$slug',
-  path: '/blog/$slug',
+const BlogPostsIndexRoute = BlogPostsIndexRouteImport.update({
+  id: '/blog/posts/',
+  path: '/blog/posts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogBooksIndexRoute = BlogBooksIndexRouteImport.update({
+  id: '/blog/books/',
+  path: '/blog/books/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogBookmarksIndexRoute = BlogBookmarksIndexRouteImport.update({
+  id: '/blog/bookmarks/',
+  path: '/blog/bookmarks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogPostsSlugRoute = BlogPostsSlugRouteImport.update({
+  id: '/blog/posts/$slug',
+  path: '/blog/posts/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/blog/': typeof BlogIndexRoute
-  '/bookmarks/': typeof BookmarksIndexRoute
-  '/books/': typeof BooksIndexRoute
   '/projects/': typeof ProjectsIndexRoute
+  '/blog/posts/$slug': typeof BlogPostsSlugRoute
+  '/blog/bookmarks/': typeof BlogBookmarksIndexRoute
+  '/blog/books/': typeof BlogBooksIndexRoute
+  '/blog/posts/': typeof BlogPostsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/about': typeof AboutIndexRoute
   '/blog': typeof BlogIndexRoute
-  '/bookmarks': typeof BookmarksIndexRoute
-  '/books': typeof BooksIndexRoute
   '/projects': typeof ProjectsIndexRoute
+  '/blog/posts/$slug': typeof BlogPostsSlugRoute
+  '/blog/bookmarks': typeof BlogBookmarksIndexRoute
+  '/blog/books': typeof BlogBooksIndexRoute
+  '/blog/posts': typeof BlogPostsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/blog/': typeof BlogIndexRoute
-  '/bookmarks/': typeof BookmarksIndexRoute
-  '/books/': typeof BooksIndexRoute
   '/projects/': typeof ProjectsIndexRoute
+  '/blog/posts/$slug': typeof BlogPostsSlugRoute
+  '/blog/bookmarks/': typeof BlogBookmarksIndexRoute
+  '/blog/books/': typeof BlogBooksIndexRoute
+  '/blog/posts/': typeof BlogPostsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/blog/$slug'
     | '/projects/$slug'
     | '/about/'
     | '/blog/'
-    | '/bookmarks/'
-    | '/books/'
     | '/projects/'
+    | '/blog/posts/$slug'
+    | '/blog/bookmarks/'
+    | '/blog/books/'
+    | '/blog/posts/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/blog/$slug'
     | '/projects/$slug'
     | '/about'
     | '/blog'
-    | '/bookmarks'
-    | '/books'
     | '/projects'
+    | '/blog/posts/$slug'
+    | '/blog/bookmarks'
+    | '/blog/books'
+    | '/blog/posts'
   id:
     | '__root__'
     | '/'
-    | '/blog/$slug'
     | '/projects/$slug'
     | '/about/'
     | '/blog/'
-    | '/bookmarks/'
-    | '/books/'
     | '/projects/'
+    | '/blog/posts/$slug'
+    | '/blog/bookmarks/'
+    | '/blog/books/'
+    | '/blog/posts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogSlugRoute: typeof BlogSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   AboutIndexRoute: typeof AboutIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
-  BookmarksIndexRoute: typeof BookmarksIndexRoute
-  BooksIndexRoute: typeof BooksIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
+  BlogPostsSlugRoute: typeof BlogPostsSlugRoute
+  BlogBookmarksIndexRoute: typeof BlogBookmarksIndexRoute
+  BlogBooksIndexRoute: typeof BlogBooksIndexRoute
+  BlogPostsIndexRoute: typeof BlogPostsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -148,20 +161,6 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects/'
       preLoaderRoute: typeof ProjectsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/books/': {
-      id: '/books/'
-      path: '/books'
-      fullPath: '/books/'
-      preLoaderRoute: typeof BooksIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bookmarks/': {
-      id: '/bookmarks/'
-      path: '/bookmarks'
-      fullPath: '/bookmarks/'
-      preLoaderRoute: typeof BookmarksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -185,11 +184,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/blog/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
+    '/blog/posts/': {
+      id: '/blog/posts/'
+      path: '/blog/posts'
+      fullPath: '/blog/posts/'
+      preLoaderRoute: typeof BlogPostsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/books/': {
+      id: '/blog/books/'
+      path: '/blog/books'
+      fullPath: '/blog/books/'
+      preLoaderRoute: typeof BlogBooksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/bookmarks/': {
+      id: '/blog/bookmarks/'
+      path: '/blog/bookmarks'
+      fullPath: '/blog/bookmarks/'
+      preLoaderRoute: typeof BlogBookmarksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/posts/$slug': {
+      id: '/blog/posts/$slug'
+      path: '/blog/posts/$slug'
+      fullPath: '/blog/posts/$slug'
+      preLoaderRoute: typeof BlogPostsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -197,13 +217,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogSlugRoute: BlogSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   AboutIndexRoute: AboutIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
-  BookmarksIndexRoute: BookmarksIndexRoute,
-  BooksIndexRoute: BooksIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
+  BlogPostsSlugRoute: BlogPostsSlugRoute,
+  BlogBookmarksIndexRoute: BlogBookmarksIndexRoute,
+  BlogBooksIndexRoute: BlogBooksIndexRoute,
+  BlogPostsIndexRoute: BlogPostsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

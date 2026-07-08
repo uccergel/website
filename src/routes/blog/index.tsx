@@ -1,89 +1,171 @@
-// src/routes/blogs/index.tsx
-import { getAllPosts } from '#/lib/blog'
-import type { BlogPost } from '#/lib/blog'
+// src/routes/blog/index.tsx
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ContentNav } from '#/components/content-nav' // ← YENİ
+import { ContentNav } from '#/components/content-nav'
+import { getAllPosts } from '#/lib/blog'
+import { booksQueryOptions } from '#/lib/books'
+import { getCoverUrl } from '#/lib/openLibrary'
+import { getRaindropsByCollection } from '#/lib/raindrop'
+import { BOOKMARK_COLLECTIONS } from '#/config/bookmarks'
 
 export const Route = createFileRoute('/blog/')({
-  loader: () => getAllPosts(),
-  component: RouteComponent
+  loader: async ({ context: { queryClient } }) => {
+    const firstCollection = BOOKMARK_COLLECTIONS[0]
+
+    // Promise.all → üç kaynak paralel olarak çalışır
+    const [books, bookmarks] = await Promise.all([
+      queryClient.ensureQueryData(booksQueryOptions),
+      firstCollection
+        ? getRaindropsByCollection(firstCollection.id)
+        : Promise.resolve([])
+    ])
+
+    return {
+      // getAllPosts() senkron — await gerektirmez
+      recentPosts: getAllPosts().slice(0, 3),
+      recentBooks: books.slice(0, 3),
+      recentBookmarks: bookmarks.slice(0, 3)
+    }
+  },
+  component: BlogHubPage
 })
 
-interface BlogCardProps {
-  post: BlogPost
-  index: number
-}
-
-function BlogCard({ post, index }: BlogCardProps) {
-  return (
-    <Link
-      to="/blog/$slug"
-      params={{ slug: post.slug }}
-      className="island-shell feature-card rise-in block rounded-2xl p-6 no-underline"
-      style={{ animationDelay: `${index * 90 + 80}ms` }}
-    >
-      {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-        <div className="mb-3 flex flex-wrap gap-2">
-          {post.frontmatter.tags.map((tag) => (
-            <span
-              key={tag}
-              className="island-kicker rounded-full bg-(--chip-bg) px-3 py-0.5 text-xs"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-      <h2 className="mb-2 text-lg font-semibold text-(--sea-ink)">
-        {post.frontmatter.title}
-      </h2>
-      <p className="m-0 line-clamp-2 text-sm leading-relaxed text-(--sea-ink-soft)">
-        {post.frontmatter.description}
-      </p>
-      <p className="mt-4 text-xs text-(--sea-ink-soft)">
-        {new Date(post.frontmatter.date).toLocaleDateString('tr-TR', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })}
-      </p>
-    </Link>
-  )
-}
-
-function RouteComponent() {
-  const posts = Route.useLoaderData()
+function BlogHubPage() {
+  const { recentPosts, recentBooks, recentBookmarks } = Route.useLoaderData()
 
   return (
     <main className="page-wrap px-4 pb-8 pt-14">
-      {/* ── Sekme Navigasyonu ─────────────────────────────── */}
-      <ContentNav /> {/* ← YENİ */}
-      {/* ── Sayfa Başlığı ─────────────────────────────────── */}
+      <ContentNav />
+
+      {/* Hero */}
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <p className="island-kicker mb-2">Blog</p>
-        <h1 className="display-title text-4xl font-bold text-(--sea-ink) sm:text-5xl">
-          Yazılarım
+        <p className="island-kicker mb-3">İçerik</p>
+        <h1 className="display-title text-3xl font-bold text-(--sea-ink) sm:text-4xl">
+          Blog
         </h1>
-        <p className="mt-3 max-w-xl text-base leading-8 text-(--sea-ink-soft)">
-          Yazılım, kimya mühendisliği ve öğrendiklerim üzerine notlar.
+        <p className="mt-3 max-w-xl leading-8 text-(--sea-ink-soft)">
+          Yazılar, kitaplar ve takip ettiğim kaynakların bir araya geldiği yer.
         </p>
-        <span className="island-kicker mt-4 block text-xs">
-          {posts.length} yazı
-        </span>
       </section>
-      {posts.length > 0 ? (
-        <section className="mt-8 grid gap-4 sm:grid-cols-2">
-          {posts.map((post, index) => (
-            <BlogCard key={post.slug} post={post} index={index} />
-          ))}
-        </section>
-      ) : (
-        <section className="island-shell mt-8 rounded-2xl p-12 text-center">
-          <p className="text-(--sea-ink-soft)">
-            Henüz yazı yok. Yakında görüşürüz!
-          </p>
-        </section>
-      )}
+
+      {/* ── Son Yazılar ───────────────────────────────────────── */}
+      <div className="mt-8 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-(--sea-ink)">Son Yazılar</h2>
+        <Link
+          to="/blog/posts"
+          className="island-kicker text-xs transition-opacity hover:opacity-70"
+        >
+          Tümünü Gör →
+        </Link>
+      </div>
+      <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        {recentPosts.map((post, i) => (
+          <Link
+            key={post.slug}
+            to="/blog/posts/$slug"
+            params={{ slug: post.slug }}
+            className="island-shell feature-card rise-in block rounded-2xl p-5 no-underline"
+            style={{ animationDelay: `${i * 80}ms` }}
+          >
+            {post.frontmatter.tags?.[0] && (
+              <span className="island-kicker mb-2 block text-[0.6rem]">
+                {post.frontmatter.tags[0]}
+              </span>
+            )}
+            <h3 className="text-sm font-semibold leading-snug text-(--sea-ink)">
+              {post.frontmatter.title}
+            </h3>
+            <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-(--sea-ink-soft)">
+              {post.frontmatter.description}
+            </p>
+            <time
+              dateTime={post.frontmatter.date}
+              className="mt-3 block text-xs text-(--sea-ink-soft)"
+            >
+              {new Date(post.frontmatter.date).toLocaleDateString('tr-TR', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              })}
+            </time>
+          </Link>
+        ))}
+      </div>
+
+      {/* ── Son Kitaplar ──────────────────────────────────────── */}
+      <div className="mt-8 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-(--sea-ink)">Son Kitaplar</h2>
+        <Link
+          to="/blog/books"
+          className="island-kicker text-xs transition-opacity hover:opacity-70"
+        >
+          Tümünü Gör →
+        </Link>
+      </div>
+      <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        {recentBooks.map((book, i) => (
+          <div
+            key={book.isbn}
+            className="island-shell feature-card rise-in flex gap-3 rounded-2xl p-4"
+            style={{ animationDelay: `${i * 80 + 240}ms` }}
+          >
+            {/* getCoverUrl sadece URL üretir, fetch yapmaz */}
+            <img
+              src={getCoverUrl(book.isbn, 'S')}
+              alt={`${book.title} kapak`}
+              className="h-16 w-11 shrink-0 rounded object-cover shadow-sm"
+            />
+            <div className="flex min-w-0 flex-col gap-0.5">
+              <p className="truncate text-sm font-semibold text-(--sea-ink)">
+                {book.title}
+              </p>
+              <p className="text-xs text-(--sea-ink-soft)">{book.author}</p>
+              {book.publishYear && (
+                <p className="text-xs text-(--sea-ink-soft)">
+                  {book.publishYear}
+                </p>
+              )}
+              {book.pageCount && (
+                <p className="text-xs text-(--sea-ink-soft)">
+                  {book.pageCount} sayfa
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Son Yer İmleri ────────────────────────────────────── */}
+      <div className="mt-8 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-(--sea-ink)">
+          Son Yer İmleri
+        </h2>
+        <Link
+          to="/blog/bookmarks"
+          className="island-kicker text-xs transition-opacity hover:opacity-70"
+        >
+          Tümünü Gör →
+        </Link>
+      </div>
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        {recentBookmarks.map((item, i) => (
+          <Link
+            key={item._id}
+            to={item.link}
+            target="_blank"
+            rel="noreferrer"
+            className="island-shell feature-card rise-in block rounded-2xl p-4 no-underline"
+            style={{ animationDelay: `${i * 80 + 480}ms` }}
+          >
+            <p className="text-sm font-medium text-(--sea-ink)">{item.title}</p>
+            <p className="mt-1 text-xs text-(--sea-ink-soft)">{item.domain}</p>
+            {item.excerpt && (
+              <p className="mt-2 line-clamp-2 text-xs text-(--sea-ink-soft)">
+                {item.excerpt}
+              </p>
+            )}
+          </Link>
+        ))}
+      </div>
     </main>
   )
 }

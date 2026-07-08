@@ -4,7 +4,7 @@ import { getRaindropsByCollections } from '#/lib/raindrop'
 import { ContentNav } from '#/components/content-nav' // ← YENİ
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/bookmarks/')({
+export const Route = createFileRoute('/blog/bookmarks/')({
   loader: async () => {
     const groups = await getRaindropsByCollections(BOOKMARK_COLLECTIONS)
     return { groups }

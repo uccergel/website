@@ -16,7 +16,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-export const Route = createFileRoute('/books/')({
+export const Route = createFileRoute('/blog/books/')({
   loader: ({ context: { queryClient } }) =>
     queryClient.ensureQueryData(booksQueryOptions),
   component: RouteComponent

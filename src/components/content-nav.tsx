@@ -7,9 +7,9 @@ import { cn } from '#/lib/utils'
 // Bu, "yazı okurken hâlâ Yazılar sekmesindeyim" deneyimini sağlar.
 
 const CONTENT_TABS = [
-  { label: 'Yazılar', to: '/blogs' as const },
-  { label: 'Kitaplar', to: '/books' as const },
-  { label: 'Yer İmleri', to: '/bookmarks' as const }
+  { label: 'Yazılar', to: '/blog/posts' as const },
+  { label: 'Kitaplar', to: '/blog/books' as const },
+  { label: 'Yer İmleri', to: '/blog/bookmarks' as const }
 ] as const
 
 // ─── TabLink Alt Bileşeni ─────────────────────────────────────────────────────

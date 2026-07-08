@@ -78,17 +78,17 @@ const mdxComponents = {
       {...props}
     />
   ),
-  hr: () => <hr className="my-10 border-(--line)" />,
+  hr: () => <hr className="my-10 border-(--line)" />
 }
 
-export const Route = createFileRoute('/blog/$slug')({
+export const Route = createFileRoute('/blog/posts/$slug')({
   loader: ({ params }) => {
     const post = getPostBySlug(params.slug)
     // null gelirse TanStack Router 404 sayfasına yönlendirir
     if (!post) throw notFound()
     return post
   },
-  component: RouteComponent,
+  component: RouteComponent
 })
 
 function RouteComponent() {
@@ -99,7 +99,7 @@ function RouteComponent() {
       {/* Geri Butonu */}
       <div className="rise-in mb-8">
         <Link
-          to="/blogs"
+          to="/blog/posts"
           className="island-kicker inline-flex items-center gap-1.5 text-xs transition hover:opacity-70"
         >
           ← Tüm Yazılar
@@ -137,7 +137,7 @@ function RouteComponent() {
             {new Date(frontmatter.date).toLocaleDateString('tr-TR', {
               year: 'numeric',
               month: 'long',
-              day: 'numeric',
+              day: 'numeric'
             })}
           </time>
         </div>
