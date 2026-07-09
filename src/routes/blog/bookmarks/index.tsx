@@ -1,8 +1,8 @@
 // src/routes/bookmarks/index.tsx
-import { BOOKMARK_COLLECTIONS } from '#/config/bookmarks'
 import { getRaindropsByCollections } from '#/lib/raindrop'
 import { ContentNav } from '#/components/content-nav' // ← YENİ
 import { createFileRoute } from '@tanstack/react-router'
+import { BOOKMARK_COLLECTIONS } from '#/content'
 
 export const Route = createFileRoute('/blog/bookmarks/')({
   loader: async () => {

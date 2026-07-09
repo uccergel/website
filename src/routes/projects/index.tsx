@@ -1,5 +1,5 @@
 import { ProjectCard } from '#/components/project-card'
-import { projects } from '#/data/projects'
+import { projects } from '#/content'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/projects/')({

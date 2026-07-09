@@ -1,8 +1,8 @@
 // src/routes/blogs/$slug.tsx
-import { getPostBySlug } from '#/lib/blog'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import type { ComponentPropsWithoutRef } from 'react'
 import { MDXProvider } from '@mdx-js/react'
+import { getPostBySlug } from '#/content'
 
 // ─── MDX İÇİN ÖZEL HTML BİLEŞENLERİ ─────────────────────────────────────────
 // MDXProvider bu map'i alır ve MDX içindeki HTML elementlerini

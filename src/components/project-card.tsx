@@ -1,7 +1,7 @@
 // src/components/project-card.tsx
 
+import type { Project, ProjectStatus } from '#/content'
 import { Link } from '@tanstack/react-router'
-import type { Project, ProjectStatus } from '#/types/project'
 
 const STATUS_CONFIG: Record<
   ProjectStatus,
@@ -9,16 +9,16 @@ const STATUS_CONFIG: Record<
 > = {
   active: {
     label: 'Aktif',
-    className: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    className: 'bg-emerald-50 text-emerald-700 border border-emerald-200'
   },
   completed: {
     label: 'Tamamlandı',
-    className: 'bg-blue-50 text-blue-700 border border-blue-200',
+    className: 'bg-blue-50 text-blue-700 border border-blue-200'
   },
   archived: {
     label: 'Arşivlendi',
-    className: 'bg-gray-50 text-gray-600 border border-gray-200',
-  },
+    className: 'bg-gray-50 text-gray-600 border border-gray-200'
+  }
 }
 
 interface ProjectCardProps {

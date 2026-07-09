@@ -1,11 +1,10 @@
 // src/routes/blog/index.tsx
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ContentNav } from '#/components/content-nav'
-import { getAllPosts } from '#/lib/blog'
 import { booksQueryOptions } from '#/lib/books'
 import { getCoverUrl } from '#/lib/openLibrary'
 import { getRaindropsByCollection } from '#/lib/raindrop'
-import { BOOKMARK_COLLECTIONS } from '#/config/bookmarks'
+import { BOOKMARK_COLLECTIONS, getAllPosts } from '#/content'
 
 export const Route = createFileRoute('/blog/')({
   loader: async ({ context: { queryClient } }) => {

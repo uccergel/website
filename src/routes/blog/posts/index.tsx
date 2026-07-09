@@ -1,6 +1,6 @@
 import { ContentNav } from '#/components/content-nav'
-import { getAllPosts } from '#/lib/blog'
-import type { BlogPost } from '#/lib/blog'
+import { getAllPosts } from '#/content'
+import type { BlogPost } from '#/content'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/blog/posts/')({

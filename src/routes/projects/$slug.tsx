@@ -1,5 +1,5 @@
-import { getProjectBySlug } from '#/data/projects'
-import type { ProjectStatus } from '#/types/project'
+import { getProjectBySlug } from '#/content'
+import type { ProjectStatus } from '#/content'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 
 const STATUS_CONFIG: Record<

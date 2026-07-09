@@ -1,5 +1,5 @@
 // src/lib/openlibrary.ts
-import type { OpenLibraryData } from '#/content/books'
+import type { OpenLibraryData } from '#/content'
 
 // ─── 1. RAW API TİP TANIMLARI ────────────────────────────────────────────────
 // Bu tipler sadece bu dosyaya özel, dışarı export edilmez.
@@ -82,7 +82,7 @@ function extractYear(dateStr: string | undefined): number | null {
  */
 function transformBookRaw(
   raw: OLBookRaw | undefined,
-  isbn: string,
+  isbn: string
 ): OpenLibraryData {
   // API'de kitap hiç bulunamazsa minimum bir nesne döndür
   if (!raw) {
@@ -92,7 +92,7 @@ function transformBookRaw(
       // Kapak URL'ini yine de dene — belki görsel vardır
       coverUrl: getCoverUrl(isbn),
       publishYear: null,
-      pageCount: null,
+      pageCount: null
     }
   }
 
@@ -104,7 +104,7 @@ function transformBookRaw(
     // API'deki large yoksa medium'a bak, o da yoksa kendi URL'imizi üret
     coverUrl: raw.cover?.large ?? raw.cover?.medium ?? getCoverUrl(isbn),
     publishYear: extractYear(raw.publish_date),
-    pageCount: raw.number_of_pages ?? null,
+    pageCount: raw.number_of_pages ?? null
   }
 }
 
@@ -128,7 +128,7 @@ function transformBookRaw(
  *   const titleOfFirstBook = metadata["isbn1"]?.title
  */
 export async function fetchBooksMetadata(
-  isbns: string[],
+  isbns: string[]
 ): Promise<Record<string, OpenLibraryData>> {
   // Boş liste için erken dön — gereksiz API çağrısını önle
   if (isbns.length === 0) return {}
@@ -145,7 +145,7 @@ export async function fetchBooksMetadata(
   if (!response.ok) {
     throw new OpenLibraryError(
       `Open Library API hatası: ${response.statusText}`,
-      response.status,
+      response.status
     )
   }
 
@@ -171,7 +171,7 @@ export async function fetchBooksMetadata(
 export class OpenLibraryError extends Error {
   constructor(
     message: string,
-    public readonly status?: number,
+    public readonly status?: number
   ) {
     super(message)
     this.name = 'OpenLibraryError'

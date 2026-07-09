@@ -1,9 +1,9 @@
 // src/lib/books.ts
 import { queryOptions } from '@tanstack/react-query'
 
-import { bookEntries } from '#/content/books'
+import { bookEntries } from '#/content'
 import { fetchBooksMetadata } from '#/lib/openLibrary'
-import type { Book, ReadingStatus } from '#/content/books'
+import type { Book, ReadingStatus } from '#/content'
 
 // ─── 1. QUERY OPTIONS ────────────────────────────────────────────────────────
 
@@ -33,12 +33,12 @@ export const booksQueryOptions = queryOptions({
     // bu yüzden metadata[entry.isbn] her zaman tanımlıdır
     return bookEntries.map((entry) => ({
       ...entry,
-      ...metadata[entry.isbn],
+      ...metadata[entry.isbn]
     }))
   },
   // Kitap metadata'sı nadiren değişir — 24 saat boyunca taze say
   // Bu değer, gereksiz API çağrılarını önler
-  staleTime: 1000 * 60 * 60 * 24,
+  staleTime: 1000 * 60 * 60 * 24
 })
 
 // ─── 2. FİLTRELEME ───────────────────────────────────────────────────────────
@@ -52,7 +52,7 @@ export const booksQueryOptions = queryOptions({
  */
 export function filterBooks(
   books: Book[],
-  status: ReadingStatus | 'all',
+  status: ReadingStatus | 'all'
 ): Book[] {
   if (status === 'all') return books
   return books.filter((book) => book.status === status)
@@ -122,7 +122,7 @@ export function getBooksStats(books: Book[]): BookStats {
     wantToRead: books.filter((b) => b.status === 'want-to-read').length,
     // Ondalık basamağı 1 ile sınırla: 4.666... → 4.7
     averageRating:
-      averageRating !== null ? Math.round(averageRating * 10) / 10 : null,
+      averageRating !== null ? Math.round(averageRating * 10) / 10 : null
   }
 }
 
@@ -139,11 +139,11 @@ export const STATUS_LABELS: Record<ReadingStatus | 'all', string> = {
   all: 'Tümü',
   read: 'Okundu',
   reading: 'Okunuyor',
-  'want-to-read': 'Okunacak',
+  'want-to-read': 'Okunacak'
 }
 
 export const SORT_LABELS: Record<SortOption, string> = {
   finishedAt: 'Bitiş Tarihi',
   rating: 'Puan',
-  title: 'Başlık',
+  title: 'Başlık'
 }

@@ -1,7 +1,7 @@
 // src/routes/books/index.tsx
 import { BookCard } from '#/components/book-card'
 import { ContentNav } from '#/components/content-nav' // ← YENİ
-import type { ReadingStatus } from '#/content/books'
+import type { ReadingStatus } from '#/content'
 import {
   booksQueryOptions,
   filterBooks,

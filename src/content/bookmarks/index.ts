@@ -1,4 +1,4 @@
-// src/config/bookmarks.ts
+// src/content/bookmarks/index.ts
 
 export interface CollectionConfig {
   id: number

@@ -4,12 +4,12 @@ import {
   BookOpenIcon,
   CalendarIcon,
   FileTextIcon,
-  StarIcon,
+  StarIcon
 } from 'lucide-react'
 
 import { STATUS_LABELS } from '#/lib/books'
 import { cn } from '#/lib/utils'
-import type { Book, ReadingStatus } from '#/content/books'
+import type { Book, ReadingStatus } from '#/content'
 import { getCoverUrl } from '#/lib/openLibrary'
 
 // ─── 1. YARDIMCI BILEŞENLER ──────────────────────────────────────────────────
@@ -23,7 +23,7 @@ const STATUS_STYLES: Record<ReadingStatus, string> = {
   reading:
     'bg-[rgba(79,184,178,0.12)] text-(--lagoon-deep) border-[rgba(79,184,178,0.2)]',
   'want-to-read':
-    'bg-[rgba(23,58,64,0.08)] text-(--sea-ink-soft) border-(--line)]',
+    'bg-[rgba(23,58,64,0.08)] text-(--sea-ink-soft) border-(--line)]'
 }
 
 // ─── 2. ALT BILEŞENLER ───────────────────────────────────────────────────────
@@ -62,7 +62,7 @@ function RatingDisplay({ rating }: RatingDisplayProps) {
           className={cn(
             'size-3.5 transition-colors',
             // i < rating → dolu yıldız, i >= rating → boş yıldız
-            i < rating ? 'fill-amber-400 text-amber-400' : 'text-(--line)]',
+            i < rating ? 'fill-amber-400 text-amber-400' : 'text-(--line)]'
           )}
         />
       ))}
@@ -140,7 +140,7 @@ export function BookCard({ book, index = 0 }: BookCardProps) {
           <span
             className={cn(
               'island-kicker inline-flex items-center rounded-full border px-2 py-0.5 text-[0.6rem]',
-              STATUS_STYLES[book.status],
+              STATUS_STYLES[book.status]
             )}
           >
             {STATUS_LABELS[book.status]}
@@ -196,6 +196,6 @@ function formatFinishedAt(finishedAt: string): string {
 
   return new Intl.DateTimeFormat('tr-TR', {
     year: 'numeric',
-    month: 'long',
+    month: 'long'
   }).format(date)
 }
