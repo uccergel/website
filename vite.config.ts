@@ -14,6 +14,12 @@ import rehypeHighLight from 'rehype-highlight'
 const config = defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   Object.assign(process.env, env)
+
+  // ← Sadece development ortamında SSL doğrulamasını devre dışı bırak
+  if (mode === 'development') {
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+  }
+
   return {
     resolve: { tsconfigPaths: true },
     plugins: [

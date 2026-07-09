@@ -1,5 +1,5 @@
 // src/lib/raindrop.ts
-import { env } from '#/lib/env'
+import { getServerEnv } from '#/lib/env'
 
 // ─── 1. TİP TANIMLARI ────────────────────────────────────────────────────────
 
@@ -53,23 +53,23 @@ const RAINDROP_BASE_URL = 'https://api.raindrop.io/rest/v1'
  * Token hiçbir zaman client'a gönderilmez.
  */
 async function raindropFetch<T>(endpoint: string): Promise<T> {
-  const token = env.RAINDROP_TOKEN
+  const { RAINDROP_TOKEN } = getServerEnv()
 
-  if (!token) {
-    throw new RaindropApiError(
-      'RAINDROP_TOKEN environment variable is not set.'
-    )
-  }
+  console.log('🔑 Token var mı?', !!RAINDROP_TOKEN)
+  console.log('🌐 İstek atılıyor:', `${RAINDROP_BASE_URL}${endpoint}`)
 
   const response = await fetch(`${RAINDROP_BASE_URL}${endpoint}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${RAINDROP_TOKEN}`,
       'Content-Type': 'application/json'
     }
   })
 
+  console.log('📡 Response status:', response.status)
+
   if (!response.ok) {
     const body = await response.text()
+    console.error('❌ API Hatası:', body)
     throw new RaindropApiError(
       `Raindrop API error: ${response.status} - ${response.statusText} - ${body}`,
       response.status

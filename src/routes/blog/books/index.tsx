@@ -18,7 +18,7 @@ import { useState } from 'react'
 
 export const Route = createFileRoute('/blog/books/')({
   loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(booksQueryOptions),
+    queryClient.prefetchQuery(booksQueryOptions),
   component: RouteComponent
 })
 

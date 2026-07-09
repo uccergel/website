@@ -5,6 +5,21 @@ import { bookEntries } from '#/content'
 import { fetchBooksMetadata } from '#/lib/openLibrary'
 import type { Book, ReadingStatus } from '#/content'
 
+// ─── Fallback verisi ─────────────────────────────────────────────────────────
+// Open Library API başarısız olursa (sunucu ağ erişimi yok, timeout vb.)
+// bu veriyle "dolu ama boş" bir kitap listesi döndürürüz.
+// UI kırılmaz, sadece metadata eksik olur.
+function createFallbackBook(entry: (typeof bookEntries)[number]): Book {
+  return {
+    ...entry,
+    title: 'Başlık yüklenemedi',
+    author: 'Yazar yüklenemedi',
+    coverUrl: null,
+    publishYear: null,
+    pageCount: null
+  }
+}
+
 // ─── 1. QUERY OPTIONS ────────────────────────────────────────────────────────
 
 /**
@@ -26,19 +41,26 @@ export const booksQueryOptions = queryOptions({
   queryFn: async (): Promise<Book[]> => {
     // Tüm ISBN'leri topla — tek bir API isteği için
     const isbns = bookEntries.map((entry) => entry.isbn)
-    const metadata = await fetchBooksMetadata(isbns)
+    try {
+      const metadata = await fetchBooksMetadata(isbns)
 
-    // Her local BookEntry'yi karşılık gelen API verisiyle birleştir
-    // fetchBooksMetadata, bulunamayan ISBN'ler için de fallback döndürür
-    // bu yüzden metadata[entry.isbn] her zaman tanımlıdır
-    return bookEntries.map((entry) => ({
-      ...entry,
-      ...metadata[entry.isbn]
-    }))
+      return bookEntries.map((entry) => ({
+        ...entry,
+        ...metadata[entry.isbn]
+      }))
+    } catch (error) {
+      // Sunucu ortamında sadece console.error yeterli.
+      // Production'da bu logu loglama servisine gönderebilirsin.
+      console.error('[books] Open Library metadata fetch failed:', error)
+
+      // Hata durumunda: entry verisi + boş metadata ile devam et
+      return bookEntries.map((entry) => createFallbackBook(entry))
+    }
   },
   // Kitap metadata'sı nadiren değişir — 24 saat boyunca taze say
   // Bu değer, gereksiz API çağrılarını önler
-  staleTime: 1000 * 60 * 60 * 24
+  staleTime: 1000 * 60 * 60 * 24,
+  retry: false
 })
 
 // ─── 2. FİLTRELEME ───────────────────────────────────────────────────────────

@@ -10,6 +10,8 @@ import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
 import Header from '#/components/header.tsx'
+import { NotFound } from '#/components/not-found'
+import { ErrorBoundary } from '#/components/error-boundary'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -36,6 +38,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       }
     ]
   }),
+  notFoundComponent: NotFound,
+  errorComponent: ({ error, reset }) => (
+    <ErrorBoundary error={error} reset={reset} />
+  ),
   shellComponent: RootDocument
 })
 

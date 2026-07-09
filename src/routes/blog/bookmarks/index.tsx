@@ -9,7 +9,8 @@ export const Route = createFileRoute('/blog/bookmarks/')({
     const groups = await getRaindropsByCollections(BOOKMARK_COLLECTIONS)
     return { groups }
   },
-  component: RouteComponent
+  component: RouteComponent,
+  errorComponent: BookmarksError
 })
 
 function RouteComponent() {
@@ -60,6 +61,18 @@ function RouteComponent() {
           </div>
         </section>
       ))}
+    </main>
+  )
+}
+
+// Hata durumunda gösterilecek component
+function BookmarksError({ error }: { error: Error }) {
+  return (
+    <main className="page-wrap px-4 pt-14">
+      <div className="island-shell rounded-2xl p-8 text-center">
+        <p className="text-red-500">Yer imleri yüklenirken hata oluştu.</p>
+        <p className="mt-2 text-sm text-(--sea-ink-soft)">{error.message}</p>
+      </div>
     </main>
   )
 }

@@ -15,6 +15,8 @@ function getEnv(key: string): string {
   return value
 }
 
-export const env = {
-  RAINDROP_TOKEN: getEnv('RAINDROP_TOKEN')
-} as const
+export function getServerEnv() {
+  return {
+    RAINDROP_TOKEN: getEnv('RAINDROP_TOKEN')
+  } as const
+}
