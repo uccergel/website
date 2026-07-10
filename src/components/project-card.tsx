@@ -18,6 +18,10 @@ const STATUS_CONFIG: Record<
   archived: {
     label: 'Arşivlendi',
     className: 'bg-gray-50 text-gray-600 border border-gray-200'
+  },
+  planning: {
+    label: 'Planlanıyor.',
+    className: 'bg-yellow-50 text-yellow-600 border border-yellow-200'
   }
 }
 

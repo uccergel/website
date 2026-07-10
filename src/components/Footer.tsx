@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="mt-20 border-t border-line px-4 pb-14 pt-10 text-sea-ink-soft">
       <p className="flex items-center justify-center mx-auto m-0 text-sm">
-        &copy; {year} uccergel. All rights reserved.
+        &copy; {year} uccergel. Bütün hakları saklıdır.
       </p>
     </footer>
   )

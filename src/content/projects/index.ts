@@ -1,4 +1,4 @@
-export type ProjectStatus = 'active' | 'completed' | 'archived'
+export type ProjectStatus = 'active' | 'completed' | 'archived' | 'planning'
 
 export type ProjectTag =
   | 'React'
@@ -42,11 +42,72 @@ export const projects: Project[] = [
     startDate: '2026-06',
     links: {
       github: 'https://github.com/uccergel/uccergel.github.io',
-      live: 'https://uccergel.github.io'
+      live: 'https://uccergel.com'
+    },
+    featured: true
+  },
+  {
+    id: 'vira',
+    title: ' Çağrı Merkezi Yönetim Uygulaması',
+    description:
+      'Çağrı Merkezi Metrikleri ve Çalışan Yönetimini bir araya getiren web&mobil uygulaması.',
+    longDescription:
+      'Çağrı Merkezi Metrikleri (Kuyruk İstatistikleri, Çağrı İstatistikleri), İletişim Kanallarından Gelen Başvuruların ',
+    tags: [
+      'React',
+      'TypeScript',
+      'Tanstack Start',
+      'Django',
+      'Python',
+      'Postgresql',
+      'React-Native'
+    ],
+    status: 'active',
+    startDate: '2023-01',
+    links: {
+      github: '',
+      live: 'https://vira.uccergel.com'
+    },
+    featured: true
+  },
+  {
+    id: 'manus-adiutrix',
+    title: 'Sosyal Yardım Takip Uygulaması',
+    description:
+      'Kamu kurumlarının verdiği sosyal yardımları tek bir çatı altında yönetmesini sağlayan web & mobil uygulaması.',
+    longDescription: 'manus: el, adiutrix: yardım',
+    tags: [
+      'React',
+      'TypeScript',
+      'Tanstack Start',
+      'Django',
+      'Python',
+      'Postgresql',
+      'React-Native'
+    ],
+    status: 'planning',
+    startDate: '2024-05',
+    links: {
+      github: '',
+      live: ''
+    },
+    featured: true
+  },
+  {
+    id: 'dummy-mernis',
+    title: 'SERNİS - Sahte Nüfus İdaresi Sistemi',
+    description:
+      'Uygulama geliştirme aşamasında ihtiyaç duyulan mernis datasının tamamen sahte üretimlerle API haline getirilmesi.',
+    longDescription: '',
+    tags: [],
+    status: 'planning',
+    startDate: '2026-05',
+    links: {
+      github: '',
+      live: ''
     },
     featured: true
   }
-  // Daha fazla proje ekleyebilirsin...
 ]
 
 export function getProjectBySlug(slug: string): Project | undefined {

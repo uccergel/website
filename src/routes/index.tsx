@@ -52,29 +52,30 @@ function App() {
     return () => clearInterval(interval)
   }, [])
   return (
-    <main className="page-wrap px-4 pb-8 pt-14">
-      <div className="grid grid-cols-6 gap-4">
-        <section className="col-span-4 island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-          <div>
-            <h1 className="text-4xl font-bold mb-8">
-              Uğur Cem <br /> Çergel
-            </h1>
+    <main className="page-wrap px-4 pb-8 pt-14 h-screen overflow-hidden box-border">
+      <div className="grid grid-cols-6 gap-4 h-full">
+        <section className="max-h-96 col-span-4 island-shell rise-in relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-14 flex flex-col h-full box-border">
+          <div className="flex flex-col justify-between flex-1">
+            <div>
+              <h1 className="text-4xl font-bold mb-8">
+                Uğur Cem <br /> Çergel
+              </h1>
+              <p
+                key={activeIndex}
+                className="fade-swap text-base font-medium text-(--sea-ink)"
+              >
+                {qualifications[activeIndex].description}
+              </p>
+            </div>
 
-            <p
-              key={activeIndex}
-              className="fade-swap text-base font-medium text-(--sea-ink)"
-            >
-              {qualifications[activeIndex].description}
-            </p>
-
-            <div className="mt-4 flex justify-center gap-4">
+            <div className="flex gap-4">
               {iconLists.map((iconList) => (
                 <a
                   key={iconList.name}
                   href={iconList.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex my-auto items-center space-x- rounded-xl p-2 text-sea-ink-soft] transition hover:bg-(--link-bg-hover) hover:text--sea-ink"
+                  className="flex my-auto items-center border transition rounded-xl p-2 text-(--sea-ink-soft) hover:bg-(--link-bg-hover) hover:text-(--sea-ink) gap-2"
                 >
                   {iconList.name}
                   {iconList.icon}
@@ -83,29 +84,20 @@ function App() {
             </div>
           </div>
         </section>
-
-        <section className="mt-8 grid col-span-2 gap-4 sm:grid-rows-2 lg:grid-rows-4">
+        <section className="max-h-96 island-shell feature-card rise-in rounded-2xl grid col-span-2 gap-4 sm:grid-rows-2 lg:grid-rows-4 h-full overflow-y-auto pr-1">
           {[
             [
-              'Type-Safe Routing',
-              'Routes and links stay in sync across every page.'
+              'Ne iş yapıyorum?',
+              'Bir kamu kurumunda Çağrı Merkezinden sorumlu olarak çalışyorum.'
             ],
             [
-              'Server Functions',
-              'Call server code from your UI without creating API boilerplate.'
-            ],
-            [
-              'Streaming by Default',
-              'Ship progressively rendered responses for faster experiences.'
-            ],
-            [
-              'Tailwind Native',
-              'Design quickly with utility-first styling and reusable tokens.'
+              'Neyle uğraşıyorum?',
+              'Çağrı Merkezi iş ve raporlama süreçlerini ihtiyaçlarıma yönelik olarak tasarladığım web uygulaması geliştiriyorum.'
             ]
           ].map(([title, desc], index) => (
             <article
               key={title}
-              className="island-shell feature-card rise-in rounded-2xl p-5"
+              className="p-5"
               style={{ animationDelay: `${index * 90 + 80}ms` }}
             >
               <h2 className="mb-2 text-base font-semibold text-sea-ink">

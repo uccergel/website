@@ -384,7 +384,7 @@ a {
 }
 
 .fade-swap {
-  animation: fade-swap 0.6s ease both;
+  animation: fade-swap 100ms ease both;
 }
 
 @keyframes fade-swap {
