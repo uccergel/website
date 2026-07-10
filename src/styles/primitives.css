@@ -1,0 +1,51 @@
+/* ─── primitives.css ─────────────────────────────────────────────────────────
+ * Ham renk paleti. "Bu renk ne anlama gelir?" sorusu burada YOKTUR.
+ * Sadece "Bu renk nedir?" sorusunu cevaplar.
+ *
+ * KURAL: Bu dosyadaki değişkenler doğrudan component'lerde kullanılmaz.
+ * Bunlar tokens.css'teki semantik token'lar tarafından referans alınır.
+ *
+ * Palette mantığı:
+ *   Warm Neutral → Yeni BG'den (#F0EBE8, hsl(17,26%,93%)) türetildi
+ *   Teal         → Mevcut okyanus aksanı, değişmedi
+ *   Green        → Palm / orman yeşili, değişmedi
+ *   Ink          → Metin renkleri
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Sıcak Nötraller ─────────────────────────────────
+   * Kaynak: hsl(17, 26%, 93%) = #F0EBE8
+   * Hem light bg zemini hem dark bg temeli bu scale'den gelir.
+   * ─────────────────────────────────────────────────── */
+  --primitive-warm-50: #fdfaf8; /* Neredeyse beyaz, en açık */
+  --primitive-warm-100: #f7f2ef; /* Çok açık krem (foam / bg-subtle) */
+  --primitive-warm-200: #f0ebe8; /* ← Yeni LIGHT BG rengi */
+  --primitive-warm-300: #e3d9d4; /* Sand — kontrast alanlar */
+  --primitive-warm-400: #ccbfb9; /* Muted border */
+  --primitive-warm-500: #ae9f97; /* Mid tone */
+  --primitive-warm-600: #8c7d76;
+  --primitive-warm-700: #6a5d56;
+  --primitive-warm-800: #4e4340; /* Koyu yüzey */
+  --primitive-warm-900: #2d2320;
+  --primitive-warm-950: #1d1714; /* ← Yeni DARK BG rengi */
+
+  /* ── Teal — Okyanus vurguları ────────────────────────
+   * Mevcut renklerin aynen korunmuş hali.
+   * ─────────────────────────────────────────────────── */
+  --primitive-teal-200: #b2e8e5;
+  --primitive-teal-300: #7ed3d0;
+  --primitive-teal-400: #4fb8b2; /* lagoon */
+  --primitive-teal-500: #328f97; /* lagoon-deep */
+  --primitive-teal-600: #246f76;
+  --primitive-teal-700: #1a5560;
+
+  /* ── Yeşil — Palm / Orman ────────────────────────── */
+  --primitive-green-300: #6ec89a;
+  --primitive-green-400: #3d8a60;
+  --primitive-green-500: #2f6a4a; /* palm */
+  --primitive-green-600: #225238;
+
+  /* ── Mürekkep — Metin rengi temeli ──────────────── */
+  --primitive-ink-900: #173a40; /* Ana metin */
+  --primitive-ink-700: #416166; /* İkincil metin */
+}

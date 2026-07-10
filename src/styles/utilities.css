@@ -1,0 +1,115 @@
+/* ─── utilities.css ──────────────────────────────────────────────────────────
+ * Proje-spesifik yardımcı class'lar.
+ * Tailwind'in kapsayamadığı, token'ları kullanan tekrarlı pattern'ler.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Layout ──────────────────────────────────────────── */
+.page-wrap {
+  width: min(1080px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+/* ── Tipografi yardımcıları ──────────────────────────── */
+.display-title {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+/* island-kicker: Üst başlık / kategori etiketi            */
+/* Örnek: "Blog", "2024-01", "TYPESCRIPT"                  */
+.island-kicker {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.69rem;
+  color: var(--kicker);
+}
+
+/* ── Yüzey efektleri ─────────────────────────────────── */
+
+/* island-shell: Kayan ada hissi veren cam benzeri yüzey.
+ * Sayfanın her büyük bölümü, her kart bu class'ı kullanır.
+ * inset-glint → üstten gelen tek piksel parıltı çizgisi. */
+.island-shell {
+  border: 1px solid var(--line);
+  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
+  box-shadow:
+    0 1px 0 var(--inset-glint) inset,
+    0 22px 44px rgba(30, 60, 50, 0.09),
+    0 6px 18px rgba(23, 58, 64, 0.07);
+  backdrop-filter: blur(4px);
+}
+
+/* feature-card: island-shell'in hover efektli, etkileşimli versiyonu.
+ * Genellikle island-shell ile birlikte kullanılır:
+ * className="island-shell feature-card rounded-2xl ..." */
+.feature-card {
+  background: linear-gradient(
+    165deg,
+    color-mix(in oklab, var(--surface-strong) 93%, white 7%),
+    var(--surface)
+  );
+  box-shadow:
+    0 1px 0 var(--inset-glint) inset,
+    0 18px 34px rgba(30, 60, 50, 0.09),
+    0 4px 14px rgba(23, 58, 64, 0.06);
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(
+    in oklab,
+    var(--color-accent-lagoon-deep) 32%,
+    var(--line)
+  );
+  box-shadow:
+    0 1px 0 var(--inset-glint) inset,
+    0 26px 52px rgba(30, 60, 50, 0.13),
+    0 8px 22px rgba(23, 58, 64, 0.1);
+}
+
+/* ── Navigasyon linkleri ─────────────────────────────── */
+
+/* nav-link: Alt çizgi animasyonlu navigasyon linki.
+ * is-active class'ı TanStack Router activeProps ile eklenir. */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-lagoon),
+    var(--primitive-teal-300)
+  );
+  transition: transform 170ms ease;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--color-text-primary);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ── Genel geçiş ─────────────────────────────────────── */
+button,
+a {
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}

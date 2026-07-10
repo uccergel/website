@@ -1,0 +1,121 @@
+/* ─── global.css ─────────────────────────────────────────────────────────────
+ * Bare HTML element stilleri. Sadece temel HTML tag'larını hedefler.
+ * Component class'ları burada YOK — onlar utilities.css'te.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: 'Oxanium', system-ui, sans-serif;
+  background-color: var(--bg-base);
+
+  /* Üç katmanlı arka plan:
+     1. Renk bulutları (hero-a, hero-b) — derinlik hissi
+     2. Dikey gradient — zemin → subtle → base geçişi
+     Tüm bunlar bg-base renginin üstünde render edilir. */
+  background:
+    radial-gradient(1100px 620px at -8% -10%, var(--hero-a), transparent 58%),
+    radial-gradient(1050px 620px at 112% -12%, var(--hero-b), transparent 62%),
+    radial-gradient(
+      720px 380px at 50% 115%,
+      rgba(79, 184, 178, 0.07),
+      transparent 68%
+    ),
+    linear-gradient(
+      180deg,
+      var(--bg-sand) 0%,
+      var(--bg-subtle) 44%,
+      var(--bg-base) 100%
+    );
+
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Işık yansıması (derinlik katmanı) ───────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.2;
+  background:
+    radial-gradient(
+      circle at 20% 15%,
+      rgba(255, 255, 255, 0.8),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 78% 26%,
+      rgba(79, 184, 178, 0.16),
+      transparent 42%
+    ),
+    radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.11), transparent 36%);
+}
+
+/* ── İnce ızgara dokusu ──────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.11;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
+}
+
+/* ── Metin seçim rengi ───────────────────────────────── */
+::selection {
+  background-color: rgba(79, 184, 178, 0.24);
+}
+
+/* ── Link stilleri ───────────────────────────────────── */
+a {
+  color: var(--color-accent-lagoon-deep);
+  text-decoration-color: rgba(50, 143, 151, 0.36);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--color-accent-lagoon);
+}
+
+/* ── Inline kod ──────────────────────────────────────── */
+code {
+  font-size: 0.9em;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface-strong) 82%, white 18%);
+  border-radius: 7px;
+  padding: 2px 7px;
+}
+
+/* pre içindeki code — pre kendi stilini taşır */
+pre code {
+  border: none;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ── Prose / MDX kod bloğu ───────────────────────────── */
+.prose pre {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #1d2e45;
+  color: #e8efff;
+}

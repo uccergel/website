@@ -1,0 +1,40 @@
+/* ─── fonts.css ──────────────────────────────────────────────────────────────
+ * @font-face tanımları. Sadece font yükleme sorumluluğu burada.
+ *
+ * Neden variable font?
+ *   → Tek bir .woff2 dosyası tüm weight'leri karşılar.
+ *   → Toplam yükleme boyutu düşer (~40% daha az).
+ *   → font-weight: 300 800 syntax'ı, aradaki her weight değerini destekler.
+ *
+ * Dosya konumları: src/assets/fonts/{family}/{file}.woff2
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Oxanium — Ana UI fontu ─────────────────────────── */
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 300 800; /* Variable font: 300'den 800'e her ağırlık desteklenir */
+  font-display: swap; /* Font yüklenene kadar sistem fontunu göster */
+  src: url('../assets/fonts/oxanium/oxanium-variable.woff2') format('woff2');
+}
+
+/* ── Fraunces — Display / başlık fontu ──────────────── */
+/* Optical size ekseni (opsz) küçük boyutlarda okunabilirliği artırır.           */
+/* Mevcut Google Fonts importu'ndaki "9..144,wght" bunu karşılıyordu.            */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../assets/fonts/fraunces/fraunces-variable.woff2') format('woff2');
+}
+
+/* İtalik eksen — display-title bloklarında nadiren kullanılır ama eklensin */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../assets/fonts/fraunces/fraunces-italic-variable.woff2')
+    format('woff2');
+}

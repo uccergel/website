@@ -6,7 +6,7 @@ import {
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
 
-import appCss from '../styles.css?url'
+import appCss from '../styles/index.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
 import Header from '#/components/header.tsx'

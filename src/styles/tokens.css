@@ -1,0 +1,224 @@
+/* ─── tokens.css ─────────────────────────────────────────────────────────────
+ * Semantik tasarım token'ları.
+ *
+ * Bu dosya "ne renk?" değil "ne için?" sorusunu cevaplar:
+ *   --bg-base           → Sayfa zemininin rengi
+ *   --color-text-primary → Birincil metin rengi
+ *
+ * Üç katman içerir:
+ *   1. Özel tema token'ları (--bg-*, --color-*, --line vs.)
+ *   2. Geriye dönük uyumluluk alias'ları (--sea-ink, --lagoon vs.)
+ *   3. shadcn/ui token'ları (--background, --foreground vs.)
+ *
+ * Neden alias? Mevcut bileşenler --sea-ink kullanıyor.
+ * Onları kırmamak için alias referans alırlar.
+ * Yeni bileşenler --color-text-primary kullanmalıdır.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+/* ════════════════════════════════════════════════════════
+   LIGHT MODE
+   ════════════════════════════════════════════════════════ */
+:root {
+  /* ── Arka plan katmanları ────────────────────────────
+   * Üç derinlik seviyesi: base → subtle → sand
+   * ─────────────────────────────────────────────────── */
+  --bg-base: var(--primitive-warm-200); /* #F0EBE8 → Sayfa zemini */
+  --bg-subtle: var(--primitive-warm-100); /* #F7F2EF → Hafif yükselti (foam) */
+  --bg-sand: var(
+    --primitive-warm-300
+  ); /* #E3D9D4 → Kontrast gerektiren alanlar */
+
+  /* ── Yüzey renkleri (kartlar, paneller) ─────────────
+   * Beyaz tabanlı, yarı-şeffaf → arka planın sıcaklığı hafifçe sızar.
+   * ─────────────────────────────────────────────────── */
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 255, 255, 0.92);
+
+  /* ── Metin renkleri ──────────────────────────────────
+   * Primitives'ten alınır, anlamsal isimlerle kullanılır.
+   * ─────────────────────────────────────────────────── */
+  --color-text-primary: var(--primitive-ink-900); /* #173A40 */
+  --color-text-secondary: var(--primitive-ink-700); /* #416166 */
+
+  /* ── Vurgu renkleri ──────────────────────────────────
+   * Teal ve yeşil aksanlar. Dark modda daha parlak olacak.
+   * ─────────────────────────────────────────────────── */
+  --color-accent-lagoon: var(--primitive-teal-400); /* #4FB8B2 */
+  --color-accent-lagoon-deep: var(--primitive-teal-500); /* #328F97 */
+  --color-accent-palm: var(--primitive-green-500); /* #2F6A4A */
+
+  /* ── Kenarlık ve çizgiler ────────────────────────────
+   * Sıcak tonlu (teal yerine mürekkep tabanlı) kenarlıklar.
+   * Yoğunluk (0.12) düşük — hafif, subtle bir ayrım.
+   * ─────────────────────────────────────────────────── */
+  --line: rgba(23, 58, 64, 0.12);
+  --chip-line: rgba(47, 106, 74, 0.16);
+
+  /* ── Parıltı ve gölge efektleri ─────────────────────
+   * island-shell bileşeninin içinden gelen tek piksellik beyaz çizgi.
+   * ─────────────────────────────────────────────────── */
+  --inset-glint: rgba(255, 255, 255, 0.85);
+
+  /* ── UI bileşen renkleri ─────────────────────────────
+   * Her birinin spesifik bir amacı var.
+   * ─────────────────────────────────────────────────── */
+  --kicker: rgba(47, 106, 74, 0.92); /* island-kicker metni */
+  --header-bg: rgba(247, 242, 239, 0.88); /* Header blur bg */
+  --chip-bg: rgba(255, 255, 255, 0.82); /* Chip / badge zemini */
+  --link-bg-hover: rgba(255, 255, 255, 0.94); /* Link hover bg */
+
+  /* ── Hero gradyan odakları ───────────────────────────
+   * Sayfanın arka planındaki renk bulutu efekti.
+   * Light modda sıcak tonlara doğru çekildi.
+   * ─────────────────────────────────────────────────── */
+  --hero-a: rgba(79, 184, 178, 0.26); /* Teal bulutu — sol üst */
+  --hero-b: rgba(47, 106, 74, 0.16); /* Yeşil bulutu — sağ üst */
+
+  /* ════════════════════════════════════════════════════
+     GERİYE DÖNÜK UYUMLULUK ALIAS'LARI
+     Mevcut bileşenler (book-card, header, footer vb.)
+     bu isimleri kullanıyor. Değiştirme; referans al.
+     Yeni bileşenler --color-* prefix'li versiyonları
+     kullanmalıdır.
+     ════════════════════════════════════════════════════ */
+  --sea-ink: var(--color-text-primary);
+  --sea-ink-soft: var(--color-text-secondary);
+  --lagoon: var(--color-accent-lagoon);
+  --lagoon-deep: var(--color-accent-lagoon-deep);
+  --palm: var(--color-accent-palm);
+  --sand: var(--bg-sand);
+  --foam: var(--bg-subtle);
+
+  /* ════════════════════════════════════════════════════
+     shadcn/ui TOKEN'LARI
+     Tailwind @theme inline bloğu bunları renk utility'lerine
+     dönüştürür (bg-background, text-foreground vs.)
+     ════════════════════════════════════════════════════ */
+  --background: oklch(0.958 0.009 55); /* ≈ #F0EBE8 */
+  --foreground: oklch(0.21 0.04 200);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.04 200);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.04 200);
+  --primary: oklch(0.21 0.04 200);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.94 0.009 55);
+  --secondary-foreground: oklch(0.21 0.04 200);
+  --muted: oklch(0.94 0.009 55);
+  --muted-foreground: oklch(0.5 0.02 200);
+  --accent: oklch(0.94 0.009 55);
+  --accent-foreground: oklch(0.21 0.04 200);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.87 0.014 55);
+  --input: oklch(0.87 0.014 55);
+  --ring: oklch(0.6 0.04 200);
+  --radius: 0.625rem;
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.55 0 0);
+  --chart-3: oklch(0.43 0 0);
+  --chart-4: oklch(0.37 0 0);
+  --chart-5: oklch(0.26 0 0);
+  --sidebar: oklch(0.95 0.009 55);
+  --sidebar-foreground: oklch(0.21 0.04 200);
+  --sidebar-primary: oklch(0.21 0.04 200);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.91 0.012 55);
+  --sidebar-accent-foreground: oklch(0.21 0.04 200);
+  --sidebar-border: oklch(0.87 0.014 55);
+  --sidebar-ring: oklch(0.6 0.04 200);
+}
+
+/* ════════════════════════════════════════════════════════
+   DARK MODE
+   Strateji: Aynı hue (17°) korunuyor, lightness düşürülüyor.
+   Light #F0EBE8 ≈ hsl(17, 26%, 93%)
+   Dark  #1D1714 ≈ hsl(17, 14%, 10%) ← uyumlu sıcak koyu
+   ════════════════════════════════════════════════════════ */
+.dark {
+  /* ── Arka plan katmanları ────────────────────────────
+   * Light'ın tam tersi: 950 en koyu, 900 biraz açık
+   * ─────────────────────────────────────────────────── */
+  --bg-base: var(--primitive-warm-950); /* #1D1714 → Sayfa zemini */
+  --bg-subtle: #141009; /* Daha da koyu — subtle alanlar */
+  --bg-sand: #251c19; /* Biraz açık kontrast */
+
+  /* ── Yüzey renkleri ──────────────────────────────────
+   * Siyah tabanlı değil — sıcak koyu tonlar.
+   * ─────────────────────────────────────────────────── */
+  --surface: rgba(29, 23, 20, 0.82);
+  --surface-strong: rgba(25, 19, 16, 0.94);
+
+  /* ── Metin renkleri ──────────────────────────────────
+   * Soğuk beyaz değil — sıcak beyaz. BG ile uyumlu.
+   * ─────────────────────────────────────────────────── */
+  --color-text-primary: #e4deda; /* Sıcak beyaz ≈ hsl(17, 18%, 88%) */
+  --color-text-secondary: #b09a94; /* Sıcak gri ≈ hsl(17, 14%, 63%)  */
+
+  /* ── Vurgu renkleri (dark modda daha parlak) ─────── */
+  --color-accent-lagoon: var(--primitive-teal-300); /* #7ED3D0 */
+  --color-accent-lagoon-deep: var(--primitive-teal-200); /* #B2E8E5 */
+  --color-accent-palm: var(--primitive-green-300); /* #6EC89A */
+
+  /* ── Kenarlık ve çizgiler ────────────────────────── */
+  --line: rgba(228, 222, 218, 0.13); /* Sıcak beyaz tabanlı */
+  --chip-line: rgba(141, 229, 219, 0.2);
+
+  /* ── Parıltı ─────────────────────────────────────── */
+  --inset-glint: rgba(255, 245, 240, 0.07);
+
+  /* ── UI bileşen renkleri ─────────────────────────── */
+  --kicker: #a8c4bf;
+  --header-bg: rgba(14, 10, 9, 0.86);
+  --chip-bg: rgba(35, 27, 24, 0.9);
+  --link-bg-hover: rgba(40, 31, 28, 0.84);
+
+  /* ── Hero gradyan odakları ───────────────────────── */
+  --hero-a: rgba(96, 215, 207, 0.12);
+  --hero-b: rgba(110, 200, 154, 0.09);
+
+  /* ── Geriye dönük uyumluluk alias'ları ─────────────
+   * Light'takilerle aynı yapı, aynı referans mantığı.
+   * ─────────────────────────────────────────────────── */
+  --sea-ink: var(--color-text-primary);
+  --sea-ink-soft: var(--color-text-secondary);
+  --lagoon: var(--color-accent-lagoon);
+  --lagoon-deep: var(--color-accent-lagoon-deep);
+  --palm: var(--color-accent-palm);
+  --sand: var(--bg-sand);
+  --foam: var(--bg-subtle);
+
+  /* ── shadcn/ui token'ları ───────────────────────── */
+  --background: oklch(0.145 0.012 45);
+  --foreground: oklch(0.92 0.012 40);
+  --card: oklch(0.19 0.012 45);
+  --card-foreground: oklch(0.92 0.012 40);
+  --popover: oklch(0.19 0.012 45);
+  --popover-foreground: oklch(0.92 0.012 40);
+  --primary: oklch(0.9 0.01 40);
+  --primary-foreground: oklch(0.19 0.012 45);
+  --secondary: oklch(0.24 0.014 45);
+  --secondary-foreground: oklch(0.92 0.012 40);
+  --muted: oklch(0.24 0.014 45);
+  --muted-foreground: oklch(0.62 0.016 45);
+  --accent: oklch(0.24 0.014 45);
+  --accent-foreground: oklch(0.92 0.012 40);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.55 0 0);
+  --chart-3: oklch(0.43 0 0);
+  --chart-4: oklch(0.37 0 0);
+  --chart-5: oklch(0.26 0 0);
+  --sidebar: oklch(0.19 0.012 45);
+  --sidebar-foreground: oklch(0.92 0.012 40);
+  --sidebar-primary: oklch(0.55 0.18 200);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.24 0.014 45);
+  --sidebar-accent-foreground: oklch(0.92 0.012 40);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
