@@ -10,7 +10,7 @@ export const Route = createFileRoute('/blog/')({
   loader: async ({ context: { queryClient } }) => {
     const [books, bookmarks] = await Promise.all([
       queryClient.ensureQueryData(booksQueryOptions),
-      getRaindropsByCollection(BOOKMARK_COLLECTIONS[0].id)
+      getRaindropsByCollection({ data: BOOKMARK_COLLECTIONS[0].id })
     ])
 
     return {

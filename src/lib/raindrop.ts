@@ -1,5 +1,6 @@
 // src/lib/raindrop.ts
 import { getServerEnv } from '#/lib/env'
+import { createServerFn } from '@tanstack/react-start'
 
 // ─── 1. TİP TANIMLARI ────────────────────────────────────────────────────────
 
@@ -55,9 +56,6 @@ const RAINDROP_BASE_URL = 'https://api.raindrop.io/rest/v1'
 async function raindropFetch<T>(endpoint: string): Promise<T> {
   const { RAINDROP_TOKEN } = getServerEnv()
 
-  console.log('🔑 Token var mı?', !!RAINDROP_TOKEN)
-  console.log('🌐 İstek atılıyor:', `${RAINDROP_BASE_URL}${endpoint}`)
-
   const response = await fetch(`${RAINDROP_BASE_URL}${endpoint}`, {
     headers: {
       Authorization: `Bearer ${RAINDROP_TOKEN}`,
@@ -65,11 +63,7 @@ async function raindropFetch<T>(endpoint: string): Promise<T> {
     }
   })
 
-  console.log('📡 Response status:', response.status)
-
   if (!response.ok) {
-    const body = await response.text()
-    console.error('❌ API Hatası:', body)
     throw new RaindropApiError(
       `Raindrop API error: ${response.status} - ${response.statusText} - ${body}`,
       response.status
@@ -87,21 +81,35 @@ async function raindropFetch<T>(endpoint: string): Promise<T> {
  * Kullanım:
  *   const bookmarks = await getRaindropsByCollection(28498046)
  */
-export async function getRaindropsByCollection(
-  collectionId: number
-): Promise<Raindrop[]> {
-  const data = await raindropFetch<RaindropListResponse>(
-    `/raindrops/${collectionId}`
-  )
+// export async function getRaindropsByCollection(
+//   collectionId: number
+// ): Promise<Raindrop[]> {
+//   const data = await raindropFetch<RaindropListResponse>(
+//     `/raindrops/${collectionId}`
+//   )
 
-  if (!data.result) {
-    throw new RaindropApiError(
-      `Failed to fetch raindrops for collection ${collectionId}`
+//   if (!data.result) {
+//     throw new RaindropApiError(
+//       `Failed to fetch raindrops for collection ${collectionId}`
+//     )
+//   }
+
+//   return data.items
+// }
+
+/**
+ * Server Function: Sadece sunucuda çalışır.
+ * TanStack Start, istemciden (tarayıcıdan) yapılan çağrıları otomatik olarak güvenli ağ isteklerine dönüştürür.
+ */
+export const getRaindropsByCollection = createServerFn({ method: 'GET' })
+  .validator((collectionId: string | number) => String(collectionId))
+  .handler(async ({ data: collectionId }): Promise<Raindrop[]> => {
+    // Burası kesinlikle Node.js ortamıdır; env değişkenlerine erişmek tamamen güvenlidir.
+    const json = await raindropFetch<RaindropListResponse>(
+      `/raindrops/${collectionId}`
     )
-  }
-
-  return data.items
-}
+    return json.items
+  })
 
 /**
  * Config dosyasında tanımlı birden fazla koleksiyonun
