@@ -2,12 +2,19 @@ import GithubIcon from '#/components/icons/GithubIcon'
 import LinkedinIcon from '#/components/icons/LinkedinIcon'
 import XIcon from '#/components/icons/XIcon'
 import { createFileRoute } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
 
 export const Route = createFileRoute('/')({ component: App })
 
-const iconLists = [
+export interface IconList {
+  name: string
+  icon: React.ReactNode
+  link: string
+}
+
+const iconLists: IconList[] = [
   {
-    name: 'X',
+    name: 'Twitter',
     icon: <XIcon />,
     link: 'https://x.com/uccergel'
   },
@@ -23,7 +30,27 @@ const iconLists = [
   }
 ]
 
+export interface Qualification {
+  name: string
+  description: string
+}
+
+const qualifications: Qualification[] = [
+  { name: 'call-center', description: 'Çağrı Merkezi' },
+  { name: 'engineer', description: 'Mühendislik' },
+  { name: 'chemistry', description: 'Kimya' }
+]
+
 function App() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % qualifications.length)
+    }, 1000)
+
+    // Component unmount olduğunda interval'i temizle (memory leak önlemi)
+    return () => clearInterval(interval)
+  }, [])
   return (
     <main className="page-wrap px-4 pb-8 pt-14">
       <div className="grid grid-cols-6 gap-4">
@@ -32,7 +59,14 @@ function App() {
             <h1 className="text-4xl font-bold mb-8">
               Uğur Cem <br /> Çergel
             </h1>
-            <p>Kamu kurumunda çalışıyorum. İki çocuk babasıyım. </p>
+
+            <p
+              key={activeIndex}
+              className="fade-swap text-base font-medium text-(--sea-ink)"
+            >
+              {qualifications[activeIndex].description}
+            </p>
+
             <div className="mt-4 flex justify-center gap-4">
               {iconLists.map((iconList) => (
                 <a
@@ -40,8 +74,9 @@ function App() {
                   href={iconList.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-xl p-2 text-sea-ink-soft] transition hover:bg-(--link-bg-hover) hover:text--sea-ink"
+                  className="flex my-auto items-center space-x- rounded-xl p-2 text-sea-ink-soft] transition hover:bg-(--link-bg-hover) hover:text--sea-ink"
                 >
+                  {iconList.name}
                   {iconList.icon}
                 </a>
               ))}
