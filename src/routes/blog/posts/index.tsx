@@ -61,7 +61,7 @@ function RouteComponent() {
           Yazılarım
         </h1>
         <p className="mt-3 max-w-xl text-base leading-8 text-(--sea-ink-soft)">
-          Yazılım, kimya mühendisliği ve öğrendiklerim üzerine notlar.
+          Yazılım, kimya ve öğrendiklerim üzerine notlar.
         </p>
         <span className="island-kicker mt-4 block text-xs">
           {posts.length} yazı
