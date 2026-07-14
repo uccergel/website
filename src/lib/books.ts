@@ -3,17 +3,17 @@ import { queryOptions } from '@tanstack/react-query'
 
 import { bookEntries } from '#/content'
 import { fetchBooksMetadata } from '#/lib/openLibrary'
+import type { BookFallback } from '#/lib/openLibrary'
 import type { Book, ReadingStatus } from '#/content'
 
 // ─── Fallback verisi ─────────────────────────────────────────────────────────
-// Open Library API başarısız olursa (sunucu ağ erişimi yok, timeout vb.)
-// bu veriyle "dolu ama boş" bir kitap listesi döndürürüz.
-// UI kırılmaz, sadece metadata eksik olur.
+// Open Library API TAMAMEN başarısız olursa (ağ hatası, timeout vb.)
+// entry'deki fallbackTitle/fallbackAuthor'ı kullan, o da yoksa jenerik metin.
 function createFallbackBook(entry: (typeof bookEntries)[number]): Book {
   return {
     ...entry,
-    title: 'Başlık yüklenemedi',
-    author: 'Yazar yüklenemedi',
+    title: entry.fallbackTitle ?? 'Başlık yüklenemedi',
+    author: entry.fallbackAuthor ?? 'Yazar yüklenemedi',
     coverUrl: null,
     publishYear: null,
     pageCount: null
@@ -39,30 +39,32 @@ function createFallbackBook(entry: (typeof bookEntries)[number]): Book {
 export const booksQueryOptions = queryOptions({
   queryKey: ['books'] as const,
   queryFn: async (): Promise<Book[]> => {
-    // Tüm ISBN'leri topla — tek bir API isteği için
     const isbns = bookEntries.map((entry) => entry.isbn)
+
+    // Her ISBN için "bulunamazsa bunu kullan" haritası
+    const fallbacks: Record<string, BookFallback> = Object.fromEntries(
+      bookEntries.map((entry) => [
+        entry.isbn,
+        { title: entry.fallbackTitle, author: entry.fallbackAuthor }
+      ])
+    )
+
     try {
-      const metadata = await fetchBooksMetadata(isbns)
+      const metadata = await fetchBooksMetadata(isbns, fallbacks)
 
       return bookEntries.map((entry) => ({
         ...entry,
         ...metadata[entry.isbn]
       }))
     } catch (error) {
-      // Sunucu ortamında sadece console.error yeterli.
-      // Production'da bu logu loglama servisine gönderebilirsin.
       console.error('[books] Open Library metadata fetch failed:', error)
 
-      // Hata durumunda: entry verisi + boş metadata ile devam et
       return bookEntries.map((entry) => createFallbackBook(entry))
     }
   },
-  // Kitap metadata'sı nadiren değişir — 24 saat boyunca taze say
-  // Bu değer, gereksiz API çağrılarını önler
   staleTime: 1000 * 60 * 60 * 24,
   retry: false
 })
-
 // ─── 2. FİLTRELEME ───────────────────────────────────────────────────────────
 
 /**

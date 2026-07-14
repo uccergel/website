@@ -15,6 +15,8 @@ export interface BookEntry {
   note: string | null
   finishedAt: string | null // "YYYY-MM" formatı, "2024-03" gibi
   startedAt: string | null // isteğe bağlı, ekledim
+  fallbackTitle?: string
+  fallbackAuthor?: string
 }
 
 /**
@@ -58,7 +60,9 @@ export const bookEntries: BookEntry[] = [
     rating: null,
     note: null,
     finishedAt: null,
-    startedAt: '2026-06'
+    startedAt: '2026-06',
+    fallbackTitle: 'Oblomov',
+    fallbackAuthor: 'Ivan Gonçarov'
   },
   {
     isbn: '9786256767355',
@@ -66,6 +70,8 @@ export const bookEntries: BookEntry[] = [
     rating: null,
     note: null,
     finishedAt: null,
-    startedAt: '2026-06'
+    startedAt: '2026-06',
+    fallbackTitle: 'Antik Mısırın Peygamberleri Hz. İdris Hz. Yusuf, Hz. Musa ',
+    fallbackAuthor: 'Bülent Şahin Erdeğer'
   }
 ]
