@@ -27,7 +27,8 @@ export interface Project {
   endDate?: string // Bitmemişse undefined
   links: ProjectLink
   featured: boolean // Ana sayfada veya öne çıkarılmış listede gösterilsin mi?
-  imageUrl?: string // Proje görseli (sonraki adımda)
+  imageUrl?: string // Kapak / hero görseli (detay sayfasının üstünde tam genişlik)
+  images?: string[] // Galeri görselleri (detay sayfasında grid olarak gösterilir)
 }
 
 export const projects: Project[] = [
@@ -72,7 +73,13 @@ export const projects: Project[] = [
       github: '',
       live: 'https://vira.uccergel.com'
     },
-    featured: true
+    featured: true,
+    imageUrl: '/images/projects/vira/cover.png',
+    images: [
+      '/images/projects/vira/dashboard.png',
+      '/images/projects/vira/queue-stats.png',
+      '/images/projects/vira/mobile.png'
+    ]
   },
   {
     id: 'manus-adiutrix',

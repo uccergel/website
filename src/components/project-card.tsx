@@ -37,6 +37,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <article className="island-shell feature-card rounded-2xl p-6 flex flex-col gap-4 h-full">
+      {/* ── Thumbnail ─────────────────────────────────────
+       * imageUrl tanımlı değilse bu blok hiç render edilmez,
+       * kart eskisi gibi doğrudan padding'li içerikle başlar.
+       * ─────────────────────────────────────────────────── */}
+      {project.imageUrl && (
+        <img
+          src={project.imageUrl}
+          alt={`${project.projectName} kapak görseli`}
+          className="aspect-video w-full object-cover"
+          loading="lazy"
+        />
+      )}
+
       {/* Başlık + Statü */}
       <div className="flex items-start justify-between gap-3">
         <h2 className="text-base font-semibold text-(--sea-ink) leading-snug">

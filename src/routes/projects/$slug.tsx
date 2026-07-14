@@ -97,6 +97,20 @@ function RouteComponent() {
             </span>
           ))}
         </div>
+        {/* ── Kapak Görseli ─────────────────────────────────
+         * imageUrl tanımlı değilse bu blok hiç render edilmez,
+         * bu sayede görselsiz projelerde boş kutu görünmez.
+         * ─────────────────────────────────────────────────── */}
+        {project.imageUrl && (
+          <div className="mt-8 -mx-6 sm:-mx-10 overflow-hidden">
+            <img
+              src={project.imageUrl}
+              alt={`${project.title} kapak görseli`}
+              className="aspect-video w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        )}
       </section>
 
       {/* Detay Grid */}
@@ -207,6 +221,35 @@ function RouteComponent() {
               >
                 {paragraph}
               </p>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── Görsel Galerisi ─────────────────────────────────
+       * images dizisi tanımlı ve doluysa gösterilir.
+       * object-contain kullanıyoruz çünkü web ekran görüntüleri
+       * (yatay) ile mobil ekran görüntüleri (dikey) aynı galeride
+       * karışık olabilir — object-cover kullansaydık dikey görseller
+       * üstten/alttan kırpılırdı. Sabit yükseklik (h-56) + nötr arka
+       * plan (--sand) sayesinde her oran kırpılmadan sığar.
+       * ─────────────────────────────────────────────────── */}
+      {project.images && project.images.length > 0 && (
+        <section className="island-shell mt-4 rounded-2xl p-6">
+          <p className="island-kicker mb-4">Ekran Görüntüleri</p>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {project.images.map((src, i) => (
+              <div
+                key={src}
+                className="group flex h-56 items-center justify-center overflow-hidden rounded-xl border border-[var(--line)] bg-(--sand)"
+              >
+                <img
+                  src={src}
+                  alt={`${project.title} ekran görüntüsü ${i + 1}`}
+                  className="h-full w-full object-contain transition group-hover:scale-[1.04]"
+                  loading="lazy"
+                />
+              </div>
             ))}
           </div>
         </section>
