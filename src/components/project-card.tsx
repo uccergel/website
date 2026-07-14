@@ -39,8 +39,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <article className="island-shell feature-card rounded-2xl p-6 flex flex-col gap-4 h-full">
       {/* Başlık + Statü */}
       <div className="flex items-start justify-between gap-3">
-        <h2 className="text-base font-semibold text-[var(--sea-ink)] leading-snug">
-          {project.title}
+        <h2 className="text-base font-semibold text-(--sea-ink) leading-snug">
+          {project.projectName}
         </h2>
         <span
           className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${status.className}`}
@@ -48,9 +48,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {status.label}
         </span>
       </div>
+      <div>
+        <h3 className="text-sm">{project.title}</h3>
+      </div>
 
       {/* Açıklama */}
-      <p className="text-sm text-[var(--sea-ink-soft)] leading-relaxed flex-1">
+      <p className="text-sm text-(--sea-ink-soft) leading-relaxed flex-1">
         {project.description}
       </p>
 
@@ -59,7 +62,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {project.tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-md border border-[var(--chip-line)] bg-[var(--chip-bg)] px-2 py-0.5 text-xs font-medium text-[var(--sea-ink-soft)]"
+            className="rounded-md border border-(--chip-line) bg-(--chip-bg) px-2 py-0.5 text-xs font-medium text-(--sea-ink-soft)"
           >
             {tag}
           </span>
@@ -67,8 +70,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Alt: Tarih + Detay Linki */}
-      <div className="flex items-center justify-between pt-3 border-t border-[var(--line)]">
-        <span className="text-xs text-[var(--sea-ink-soft)]">{dateRange}</span>
+      <div className="flex items-center justify-between pt-3 border-t border-(--line)">
+        <span className="text-xs text-(--sea-ink-soft)">{dateRange}</span>
         {/*
           TanStack Router'ın Link bileşeni burada kritik:
           - "to" prop'u route path'ini alıyor
@@ -78,7 +81,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <Link
           to="/projects/$slug"
           params={{ slug: project.id }}
-          className="text-xs font-semibold text-[var(--lagoon-deep)] hover:underline"
+          className="text-xs font-semibold text-(--lagoon-deep) hover:underline"
         >
           Detaylar →
         </Link>
