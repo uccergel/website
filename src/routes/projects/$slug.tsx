@@ -52,18 +52,16 @@ function RouteComponent() {
       {/* Breadcrumb */}
       <nav
         aria-label="Breadcrumb"
-        className="mb-6 flex items-center gap-2 text-sm text-[var(--sea-ink-soft)]"
+        className="mb-6 flex items-center gap-2 text-sm text-(--sea-ink-soft)"
       >
         <Link
           to="/projects"
-          className="hover:text-[var(--sea-ink)] transition-colors"
+          className="hover:text-(--sea-ink) transition-colors"
         >
           Projeler
         </Link>
         <span aria-hidden="true">/</span>
-        <span className="text-[var(--sea-ink)] font-medium">
-          {project.title}
-        </span>
+        <span className="text-(--sea-ink) font-medium">{project.title}</span>
       </nav>
 
       {/* Hero */}
@@ -71,7 +69,7 @@ function RouteComponent() {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="island-kicker mb-3">Proje</p>
-            <h1 className="display-title text-3xl font-bold text-[var(--sea-ink)] sm:text-4xl">
+            <h1 className="display-title text-3xl font-bold text-(--sea-ink) sm:text-4xl">
               {project.title}
             </h1>
           </div>
@@ -82,7 +80,7 @@ function RouteComponent() {
           </span>
         </div>
 
-        <p className="mt-4 max-w-2xl text-[var(--sea-ink-soft)] leading-relaxed">
+        <p className="mt-4 max-w-2xl text-(--sea-ink-soft) leading-relaxed">
           {project.description}
         </p>
 
@@ -91,7 +89,7 @@ function RouteComponent() {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-md border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-sm font-medium text-[var(--sea-ink-soft)]"
+              className="rounded-md border border-(--chip-line) bg-(--chip-bg) px-3 py-1 text-sm font-medium text-(--sea-ink-soft)"
             >
               {tag}
             </span>
@@ -120,15 +118,13 @@ function RouteComponent() {
           <p className="island-kicker mb-4">Detaylar</p>
           <dl className="flex flex-col gap-4">
             <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-[var(--sea-ink-soft)]">
+              <dt className="text-xs font-semibold uppercase tracking-wide text-(--sea-ink-soft)">
                 Süre
               </dt>
-              <dd className="mt-1 text-sm text-[var(--sea-ink)]">
-                {dateRange}
-              </dd>
+              <dd className="mt-1 text-sm text-(--sea-ink)">{dateRange}</dd>
             </div>
             <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-[var(--sea-ink-soft)]">
+              <dt className="text-xs font-semibold uppercase tracking-wide text-(--sea-ink-soft)">
                 Durum
               </dt>
               <dd className="mt-1">
@@ -151,7 +147,7 @@ function RouteComponent() {
                 to={project.links.github}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-[var(--lagoon-deep)] hover:underline"
+                className="flex items-center gap-2 text-sm font-medium text-(--lagoon-deep) hover:underline"
               >
                 <svg
                   viewBox="0 0 16 16"
@@ -170,7 +166,7 @@ function RouteComponent() {
                 to={project.links.live}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-[var(--lagoon-deep)] hover:underline"
+                className="flex items-center gap-2 text-sm font-medium text-(--lagoon-deep) hover:underline"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -193,7 +189,7 @@ function RouteComponent() {
                 to={project.links.demo}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-[var(--lagoon-deep)] hover:underline"
+                className="flex items-center gap-2 text-sm font-medium text-(--lagoon-deep) hover:underline"
               >
                 Demo
               </Link>
@@ -201,7 +197,7 @@ function RouteComponent() {
             {!project.links.github &&
               !project.links.live &&
               !project.links.demo && (
-                <p className="text-sm text-[var(--sea-ink-soft)]">
+                <p className="text-sm text-(--sea-ink-soft)">
                   Henüz bağlantı eklenmemiş.
                 </p>
               )}
@@ -217,7 +213,7 @@ function RouteComponent() {
             {project.longDescription.split('\n').map((paragraph, i) => (
               <p
                 key={i}
-                className="text-sm text-[var(--sea-ink-soft)] leading-relaxed"
+                className="text-sm text-(--sea-ink-soft) leading-relaxed"
               >
                 {paragraph}
               </p>
@@ -241,7 +237,7 @@ function RouteComponent() {
             {project.images.map((src, i) => (
               <div
                 key={src}
-                className="group flex h-56 items-center justify-center overflow-hidden rounded-xl border border-[var(--line)] bg-(--sand)"
+                className="group flex h-56 items-center justify-center overflow-hidden rounded-xl border border-(--line) bg-(--sand)"
               >
                 <img
                   src={src}
@@ -259,7 +255,7 @@ function RouteComponent() {
       <div className="mt-8">
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+          className="inline-flex items-center gap-2 text-sm font-medium text-(--sea-ink-soft) transition-colors hover:text-(--sea-ink)"
         >
           ← Tüm Projelere Dön
         </Link>
