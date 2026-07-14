@@ -51,10 +51,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="font-sans antialiased wrap:anywhere selection:bg-[rgba(79,184,178,0.24)]">
-        <div className="flex min-h-svh flex-col">
+      <body className="h-full font-sans antialiased wrap:anywhere selection:bg-[rgba(79,184,178,0.24)]">
+        <div className="flex min-h-svh flex-col overflow-hidden">
           <Header />
-          <main className="flex-1 overflow-y-auto">{children}</main>
+          <main className="min-h-0 flex-1 overflow-y-auto">{children}</main>
           <Footer />
         </div>
 

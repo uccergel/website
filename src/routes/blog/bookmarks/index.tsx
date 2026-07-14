@@ -18,7 +18,7 @@ function RouteComponent() {
   const totalCount = groups.reduce((acc, col) => acc + col.items.length, 0)
 
   return (
-    <main className="page-wrap px-4 pb-8 pt-14">
+    <div className="page-wrap px-4 pb-8 pt-14">
       {/* ── Sekme Navigasyonu ─────────────────────────────── */}
       <ContentNav /> {/* ← YENİ */}
       {/* ── Sayfa Başlığı ─────────────────────────────────── */}
@@ -62,7 +62,7 @@ function RouteComponent() {
           </div>
         </section>
       ))}
-    </main>
+    </div>
   )
 }
 

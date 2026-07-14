@@ -48,7 +48,7 @@ function RouteComponent() {
     : `${project.startDate} – Devam ediyor`
 
   return (
-    <main className="page-wrap px-4 pb-8 pt-14">
+    <div className="page-wrap px-4 pb-8 pt-14">
       {/* Breadcrumb */}
       <nav
         aria-label="Breadcrumb"
@@ -221,7 +221,7 @@ function RouteComponent() {
           ← Tüm Projelere Dön
         </Link>
       </div>
-    </main>
+    </div>
   )
 }
 

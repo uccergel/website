@@ -95,7 +95,7 @@ function RouteComponent() {
   const { frontmatter, Component } = Route.useLoaderData()
 
   return (
-    <main className="page-wrap px-4 pb-16 pt-14">
+    <div className="page-wrap px-4 pb-16 pt-14">
       {/* Geri Butonu */}
       <div className="rise-in mb-8">
         <Link
@@ -149,6 +149,6 @@ function RouteComponent() {
           <Component />
         </MDXProvider>
       </article>
-    </main>
+    </div>
   )
 }

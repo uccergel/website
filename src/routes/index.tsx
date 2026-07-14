@@ -52,7 +52,7 @@ function App() {
     return () => clearInterval(interval)
   }, [])
   return (
-    <main className="page-wrap px-4 pb-8 pt-14 h-screen overflow-hidden box-border">
+    <div className="page-wrap px-4 pb-8 pt-14 h-full box-border">
       <div className="grid grid-cols-6 gap-4 h-full">
         <section className="max-h-96 col-span-4 island-shell rise-in relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-14 flex flex-col h-full box-border">
           <div className="flex flex-col justify-between flex-1">
@@ -108,6 +108,6 @@ function App() {
           ))}
         </section>
       </div>
-    </main>
+    </div>
   )
 }
