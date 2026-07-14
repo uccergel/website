@@ -7,7 +7,6 @@ html,
 body,
 #app {
   height: 100%;
-  /* overflow: hidden; */
 }
 
 body {
@@ -34,6 +33,8 @@ body {
       var(--bg-subtle) 44%,
       var(--bg-base) 100%
     );
+
+  background-attachment: fixed;
 
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;

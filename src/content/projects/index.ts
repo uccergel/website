@@ -17,6 +17,7 @@ export interface ProjectLink {
 
 export interface Project {
   id: string // URL slug olarak kullanılacak: "my-portfolio"
+  projectName: string
   title: string // "Kişisel Portföy Sitesi"
   description: string // Kısa açıklama (liste sayfası için)
   longDescription?: string // Detaylı açıklama (detay sayfası için)
@@ -32,14 +33,16 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 'uccergel-github-io',
+    projectName: 'Kişisel Web Sitesi',
     title: 'Kişisel Web Sitesi',
     description:
       'TanStack Start, React ve Tailwind CSS ile inşa edilmiş kişisel portföy ve blog sitesi.',
     longDescription:
       'Type-safe routing, server-side rendering ve modern UI bileşenleriyle hazırlanmış kişisel alan. Yazılar, kitaplar ve yer imlerini barındırıyor.',
     tags: ['React', 'TypeScript', 'TailwindCSS'],
-    status: 'active',
+    status: 'completed',
     startDate: '2026-06',
+    endDate: '2026-06',
     links: {
       github: 'https://github.com/uccergel/uccergel.github.io',
       live: 'https://uccergel.com'
@@ -48,9 +51,10 @@ export const projects: Project[] = [
   },
   {
     id: 'vira',
-    title: ' Çağrı Merkezi Yönetim Uygulaması',
+    projectName: 'Vira CCM',
+    title: 'Çağrı Merkezi Yönetim Uygulaması',
     description:
-      'Çağrı Merkezi Metrikleri ve Çalışan Yönetimini bir araya getiren web&mobil uygulaması.',
+      'Çağrı Merkezi Metrikleri ve Çalışan Yönetimini bir araya getiren web & mobil uygulaması.',
     longDescription:
       'Çağrı Merkezi Metrikleri (Kuyruk İstatistikleri, Çağrı İstatistikleri), İletişim Kanallarından Gelen Başvuruların ',
     tags: [
@@ -72,6 +76,7 @@ export const projects: Project[] = [
   },
   {
     id: 'manus-adiutrix',
+    projectName: 'Manus Adiutrix',
     title: 'Sosyal Yardım Takip Uygulaması',
     description:
       'Kamu kurumlarının verdiği sosyal yardımları tek bir çatı altında yönetmesini sağlayan web & mobil uygulaması.',
@@ -95,6 +100,7 @@ export const projects: Project[] = [
   },
   {
     id: 'dummy-mernis',
+    projectName: 'SERNİS',
     title: 'SERNİS - Sahte Nüfus İdaresi Sistemi',
     description:
       'Uygulama geliştirme aşamasında ihtiyaç duyulan mernis datasının tamamen sahte üretimlerle API haline getirilmesi.',
