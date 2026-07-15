@@ -1,4 +1,5 @@
 import { ProjectCard } from '#/components/project-card'
+import { SectionHeader } from '#/components/section-header'
 import { projects } from '#/content'
 import { createFileRoute } from '@tanstack/react-router'
 
@@ -7,22 +8,13 @@ export const Route = createFileRoute('/projects/')({
 })
 
 function RouteComponent() {
-  const totalCount = projects.length
-  const activeCount = projects.filter((p) => p.status === 'active').length
-
   return (
     <div className="page-wrap px-4 py-12">
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <p className="island-kicker mb-3">Projeler</p>
-        <h1 className="display-title text-3xl font-bold text-(--sea-ink) sm:text-4xl">
-          Yaptıklarım
-        </h1>
+      <SectionHeader index="03" title="Projeler" />
+      <section>
         <p className="mt-3 max-w-xl text-(--sea-ink-soft)">
           Geliştirdiğim yazılım projeleri, kişisel denemeler ve açık kaynak
           katkıları.{' '}
-          <span className="font-medium text-(--sea-ink)">
-            {activeCount} aktif / {totalCount} toplam
-          </span>
         </p>
       </section>
 

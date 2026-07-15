@@ -1,6 +1,9 @@
+import { ImageLightbox } from '#/components/image-lightbox'
 import { getProjectBySlug } from '#/content'
 import type { ProjectStatus } from '#/content'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import { ZoomInIcon } from 'lucide-react'
+import { useState } from 'react'
 
 const STATUS_CONFIG: Record<
   ProjectStatus,
@@ -41,6 +44,9 @@ export const Route = createFileRoute('/projects/$slug')({
 
 function RouteComponent() {
   const { project } = Route.useLoaderData()
+
+  // null → lightbox kapalı, sayı → o index'teki görsel açık
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const status = STATUS_CONFIG[project.status]
   const dateRange = project.endDate
@@ -230,14 +236,18 @@ function RouteComponent() {
        * üstten/alttan kırpılırdı. Sabit yükseklik (h-56) + nötr arka
        * plan (--sand) sayesinde her oran kırpılmadan sığar.
        * ─────────────────────────────────────────────────── */}
+      {/* Görsel Galerisi */}
       {project.images && project.images.length > 0 && (
         <section className="island-shell mt-4 rounded-2xl p-6">
           <p className="island-kicker mb-4">Ekran Görüntüleri</p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {project.images.map((src, i) => (
-              <div
+              <button
                 key={src}
-                className="group flex h-56 items-center justify-center overflow-hidden rounded-xl border border-(--line) bg-(--sand)"
+                type="button"
+                onClick={() => setLightboxIndex(i)}
+                className="group relative flex h-56 items-center justify-center overflow-hidden rounded-xl border border-[var(--line)] bg-(--sand) transition focus-visible:ring-2 focus-visible:ring-(--lagoon-deep)"
+                aria-label={`${project.title} ekran görüntüsü ${i + 1} - büyütmek için tıkla`}
               >
                 <img
                   src={src}
@@ -245,7 +255,16 @@ function RouteComponent() {
                   className="h-full w-full object-contain transition group-hover:scale-[1.04]"
                   loading="lazy"
                 />
-              </div>
+
+                {/* ── Hover Overlay ─────────────────────────
+                 * Karartma + büyüteç ikonu. Görsel zaten
+                 * scale efekti alıyor, bu overlay onun üzerine
+                 * biner ve tıklanabilir olduğunu belirginleştirir.
+                 * ─────────────────────────────────────────── */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-200 group-hover:bg-black/30 group-hover:opacity-100">
+                  <ZoomInIcon className="size-8 text-white drop-shadow-lg" />
+                </div>
+              </button>
             ))}
           </div>
         </section>
@@ -259,6 +278,17 @@ function RouteComponent() {
         >
           ← Tüm Projelere Dön
         </Link>
+
+        {/* Lightbox — sadece açıkken (lightboxIndex null değilken) render edilir */}
+        {project.images && lightboxIndex !== null && (
+          <ImageLightbox
+            images={project.images}
+            index={lightboxIndex}
+            alt={project.title}
+            onClose={() => setLightboxIndex(null)}
+            onIndexChange={setLightboxIndex}
+          />
+        )}
       </div>
     </div>
   )

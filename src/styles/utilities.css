@@ -113,3 +113,16 @@ a {
     border-color 180ms ease,
     transform 180ms ease;
 }
+
+/* ── Scrollbar gizleme ────────────────────────────────
+ * Yatay thumbnail şeritleri gibi yerlerde scrollbar'ı
+ * görsel olarak gizler, scroll işlevi kalır.
+ * ─────────────────────────────────────────────────── */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}

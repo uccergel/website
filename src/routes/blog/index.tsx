@@ -1,10 +1,10 @@
 // src/routes/blog/index.tsx
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ContentNav } from '#/components/content-nav'
 import { booksQueryOptions } from '#/lib/books'
 import { getCoverUrl } from '#/lib/openLibrary'
 import { getRaindropsByCollection } from '#/lib/raindrop'
 import { BOOKMARK_COLLECTIONS, getAllPosts } from '#/content'
+import { SectionHeader } from '#/components/section-header'
 
 export const Route = createFileRoute('/blog/')({
   loader: async ({ context: { queryClient } }) => {
@@ -27,20 +27,14 @@ function BlogHubPage() {
   const { recentPosts, recentBooks, recentBookmarks } = Route.useLoaderData()
 
   return (
-    <div className="page-wrap px-4 pb-8 pt-14">
-      {/* Hero */}
-      <section className="island-shell rise-in relative overflow-hidden mb-4 rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        {/* <p className="island-kicker mb-3">İçerik</p> */}
-        <h1 className="display-title text-3xl font-bold text-(--sea-ink) sm:text-4xl">
-          Blog
-        </h1>
+    <div className="page-wrap px-4 py-12">
+      <SectionHeader index="02" title="Blog" />
+      <section>
         <p className="mt-3 max-w-xl leading-8 text-(--sea-ink-soft)">
-          Yazılar, kitaplar ve takip ettiğim kaynakların bir araya geldiği yer.
+          Yazılar, kitaplar ve takip ettiğim kaynaklar.
         </p>
       </section>
-
-      <ContentNav />
-
+      <div className="mt-8"></div>
       {/* ── Son Yazılar ───────────────────────────────────────── */}
       <div className="mt-8 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-(--sea-ink)">Son Yazılar</h2>

@@ -1,3 +1,6 @@
+import { TagGroup } from '#/components/about/tag-group'
+import { SectionHeader } from '#/components/section-header'
+import { aboutBio, aboutSections } from '#/content'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/about/')({
@@ -6,17 +9,39 @@ export const Route = createFileRoute('/about/')({
 
 function RouteComponent() {
   return (
-    <main className="page-wrap px-4 py-12">
-      <div className="grid gap-4 sm:grid-cols-1 lg:grid-cols-2">
-        <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-          {/* <p className="island-kicker mb-3">Hakkımda</p> */}
-          <h1 className="display-title text-3xl font-bold text-(--sea-ink) sm:text-4xl">
-            Hakkımda
-          </h1>
-          <p></p>
+    <div className="page-wrap px-4 py-12">
+      <SectionHeader index="01" title="Hakkımda" />
+      <section>
+        <p className="mt-3 max-w-xl text-(--sea-ink-soft)"></p>
+      </section>
+      <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-16">
+        {/* ── Sol: Biyografi ─────────────────────────────────── */}
+        <section className="lg:col-span-8">
+          <div className="flex flex-col gap-5">
+            {aboutBio.map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-lg leading-9 text-(--sea-ink-soft)"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </section>
-        <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14"></section>
+
+        {/* ── Sağ: Eğitim / Hobiler / İlgi Alanları / Diller ──── */}
+        <section className="lg:col-span-4">
+          <div className="flex flex-col gap-9">
+            {aboutSections.map((section) => (
+              <TagGroup
+                key={section.title}
+                title={section.title}
+                tags={section.tags}
+              />
+            ))}
+          </div>
+        </section>
       </div>
-    </main>
+    </div>
   )
 }

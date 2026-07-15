@@ -23,7 +23,7 @@ const STATUS_STYLES: Record<ReadingStatus, string> = {
   reading:
     'bg-[rgba(79,184,178,0.12)] text-(--lagoon-deep) border-[rgba(79,184,178,0.2)]',
   'want-to-read':
-    'bg-[rgba(23,58,64,0.08)] text-(--sea-ink-soft) border-(--line)]'
+    'bg-[rgba(23,58,64,0.08)] text-(--sea-ink-soft) border-(--line)'
 }
 
 // ─── 2. ALT BILEŞENLER ───────────────────────────────────────────────────────
@@ -62,7 +62,7 @@ function RatingDisplay({ rating }: RatingDisplayProps) {
           className={cn(
             'size-3.5 transition-colors',
             // i < rating → dolu yıldız, i >= rating → boş yıldız
-            i < rating ? 'fill-amber-400 text-amber-400' : 'text-(--line)]'
+            i < rating ? 'fill-amber-400 text-amber-400' : 'text-(--line)'
           )}
         />
       ))}
