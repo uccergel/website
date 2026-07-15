@@ -1,6 +1,6 @@
-import GithubIcon from '#/components/icons/GithubIcon'
-import LinkedinIcon from '#/components/icons/LinkedinIcon'
-import XIcon from '#/components/icons/XIcon'
+import GithubIcon from '#/components/icons/github-icon'
+import LinkedinIcon from '#/components/icons/linkedin-icon'
+import XIcon from '#/components/icons/x-icon'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 

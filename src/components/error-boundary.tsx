@@ -12,7 +12,7 @@ export function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
   const isDev = import.meta.env.DEV
 
   return (
-    <main className="page-wrap flex min-h-[60vh] flex-col items-center justify-center px-4 py-20 text-center">
+    <div className="page-wrap flex min-h-[60vh] flex-col items-center justify-center px-4 py-20 text-center">
       <div className="island-shell rise-in rounded-[2rem] px-8 py-14 sm:px-14">
         {/* İkon */}
         <p className="text-5xl">⚠️</p>
@@ -68,6 +68,6 @@ export function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

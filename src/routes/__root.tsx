@@ -4,10 +4,10 @@ import {
   createRootRouteWithContext
 } from '@tanstack/react-router'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-import Footer from '../components/Footer'
 
 import appCss from '../styles/index.css?url'
 
+import Footer from '#/components/footer'
 import type { QueryClient } from '@tanstack/react-query'
 import Header from '#/components/header.tsx'
 import { NotFound } from '#/components/not-found'

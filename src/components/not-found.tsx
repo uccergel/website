@@ -4,7 +4,7 @@ export function NotFound() {
   const router = useRouter()
 
   return (
-    <main className="page-wrap flex min-h-[60vh] flex-col items-center justify-center px-4 py-20 text-center">
+    <div className="page-wrap flex min-h-[60vh] flex-col items-center justify-center px-4 py-20 text-center">
       <div className="island-shell rise-in rounded-[2rem] px-8 py-14 sm:px-14">
         {/* Büyük hata kodu */}
         <p className="display-title text-7xl font-bold text-(--lagoon) sm:text-9xl">
@@ -37,6 +37,6 @@ export function NotFound() {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

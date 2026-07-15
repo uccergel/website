@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import MoonIcon from './icons/MoonIcon'
-import SunIcon from './icons/SunIcon'
-import MonitorIcon from './icons/MonitorIcon'
+import MoonIcon from './icons/moon-icon'
+import SunIcon from './icons/sun-icon'
+import MonitorIcon from './icons/monitor-icon'
 
 type ThemeMode = 'light' | 'dark' | 'auto'
 
