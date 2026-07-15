@@ -62,7 +62,7 @@ export function ImageLightbox({
 
   return (
     <div
-      className="fade-in fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/85 p-4"
+      className="fade-in fixed inset-0 z-100 flex flex-col items-center justify-center bg-black/85 p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"

@@ -246,7 +246,7 @@ function RouteComponent() {
                 key={src}
                 type="button"
                 onClick={() => setLightboxIndex(i)}
-                className="group relative flex h-56 items-center justify-center overflow-hidden rounded-xl border border-[var(--line)] bg-(--sand) transition focus-visible:ring-2 focus-visible:ring-(--lagoon-deep)"
+                className="group relative flex h-56 items-center justify-center overflow-hidden rounded-xl border border-(--line) bg-(--sand) transition focus-visible:ring-2 focus-visible:ring-(--lagoon-deep)"
                 aria-label={`${project.title} ekran görüntüsü ${i + 1} - büyütmek için tıkla`}
               >
                 <img

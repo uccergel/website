@@ -1,16 +1,11 @@
 // src/components/book-card.tsx
-import { useState } from 'react'
-import {
-  BookOpenIcon,
-  CalendarIcon,
-  FileTextIcon,
-  StarIcon
-} from 'lucide-react'
+import { CalendarIcon, FileTextIcon } from 'lucide-react'
 
 import { STATUS_LABELS } from '#/lib/books'
 import { cn } from '#/lib/utils'
 import type { Book, ReadingStatus } from '#/content'
-import { getCoverUrl } from '#/lib/openLibrary'
+import CoverImage from './books/cover-image'
+import RatingDisplay from './books/rating-display'
 
 // ─── 1. YARDIMCI BILEŞENLER ──────────────────────────────────────────────────
 
@@ -26,83 +21,7 @@ const STATUS_STYLES: Record<ReadingStatus, string> = {
     'bg-[rgba(23,58,64,0.08)] text-(--sea-ink-soft) border-(--line)'
 }
 
-// ─── 2. ALT BILEŞENLER ───────────────────────────────────────────────────────
-
-interface RatingDisplayProps {
-  rating: Book['rating']
-}
-
-/**
- * Yıldız puanını görsel olarak gösterir.
- * Puanlanmamış kitaplar için boş yıldızlar render edilir.
- */
-function RatingDisplay({ rating }: RatingDisplayProps) {
-  // Puanlanmamış kitap — boş yıldızlar göster
-  if (rating === null) {
-    return (
-      <div className="flex items-center gap-0.5">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <StarIcon key={i} className="size-3.5 text-(--line)" />
-        ))}
-        <span className="ml-1.5 text-xs text-(--sea-ink-soft)">
-          Puanlanmadı
-        </span>
-      </div>
-    )
-  }
-
-  return (
-    <div
-      className="flex items-center gap-0.5"
-      aria-label={`${rating} üzerinden 5 puan`}
-    >
-      {Array.from({ length: 5 }).map((_, i) => (
-        <StarIcon
-          key={i}
-          className={cn(
-            'size-3.5 transition-colors',
-            // i < rating → dolu yıldız, i >= rating → boş yıldız
-            i < rating ? 'fill-amber-400 text-amber-400' : 'text-(--line)'
-          )}
-        />
-      ))}
-    </div>
-  )
-}
-
-interface CoverImageProps {
-  isbn: string
-  title: string
-}
-
-/**
- * Kapak görselini yönetir.
- * onError tetiklenirse fallback UI gösterir.
- * useState ile "hata var mı" bilgisini takip ederiz.
- */
-function CoverImage({ isbn, title }: CoverImageProps) {
-  const [hasError, setHasError] = useState(false)
-
-  if (hasError) {
-    return (
-      <div className="flex size-full items-center justify-center bg-(--sand)">
-        <BookOpenIcon className="size-8 text-(--sea-ink-soft)" />
-      </div>
-    )
-  }
-
-  return (
-    <img
-      src={getCoverUrl(isbn, 'M')}
-      alt={`${title} kitap kapağı`}
-      className="size-full object-cover"
-      loading="lazy"
-      onError={() => setHasError(true)}
-    />
-  )
-}
-
-// ─── 3. ANA BILEŞEN ──────────────────────────────────────────────────────────
+// ─── 2. ANA BILEŞEN ──────────────────────────────────────────────────
 
 interface BookCardProps {
   book: Book

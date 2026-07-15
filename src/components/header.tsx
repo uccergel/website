@@ -1,6 +1,6 @@
 // src/components/Header.tsx
 import { Link } from '@tanstack/react-router'
-import ThemeToggle from './ThemeToggle'
+import ThemeToggle from './theme-toggle'
 
 // Tip güvenliği için TanStack Router'ın bildiği route'ları kullanıyoruz.
 // Projects route'u henüz yok, onu sonraki adımda ekleyeceğiz.
