@@ -53,8 +53,8 @@ function App() {
   }, [])
   return (
     <div className="page-wrap flex items-center px-4 py-8 h-full box-border">
-      <div className="grid grid-cols-6 gap-4 h-96 w-full">
-        <section className="max-h-96 col-span-4 island-shell rise-in relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-14 flex flex-col h-full box-border">
+      <div className="grid grid-cols-1 sm:grid-cols-6 gap-4 sm:h-96 w-full">
+        <section className="sm:max-h-96 sm:col-span-4 island-shell rise-in relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-14 flex flex-col h-full box-border">
           <div className="flex flex-col justify-between flex-1">
             <div>
               <h1 className="text-4xl font-bold mb-8">
@@ -84,7 +84,7 @@ function App() {
             </div>
           </div>
         </section>
-        <section className="max-h-96 island-shell feature-card rise-in rounded-2xl grid col-span-2 gap-4 sm:grid-rows-2 lg:grid-rows-4 h-full overflow-y-auto pr-1">
+        <section className="sm:max-h-96 island-shell feature-card rise-in rounded-2xl grid sm:col-span-2 gap-4 sm:grid-rows-2 lg:grid-rows-4 h-full overflow-y-auto pr-1">
           {[
             [
               'Ne iş yapıyorum?',
