@@ -108,7 +108,7 @@ export const projects: Project[] = [
   {
     id: 'dummy-mernis',
     projectName: 'SERNİS',
-    title: 'SERNİS - Sahte Nüfus İdaresi Sistemi',
+    title: 'SERNİS - Fake Nüfus İdaresi Sistemi',
     description:
       'Uygulama geliştirme aşamasında ihtiyaç duyulan mernis datasının tamamen sahte üretimlerle API haline getirilmesi.',
     longDescription: '',

@@ -36,7 +36,7 @@ export const aboutSections: AboutTagSection[] = [
   },
   {
     title: 'İlgi Alanlarım',
-    tags: [] // şimdilik boş — TagGroup placeholder gösterecek
+    tags: ['Kahve'] // şimdilik boş — TagGroup placeholder gösterecek
   },
   {
     title: 'Diller',

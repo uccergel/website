@@ -1,0 +1,18 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: uccergel-web:latest
+    container_name: uccergel-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOST: "0.0.0.0"
+      # Secret'ı image'a gömmüyoruz; .env dosyasından okunur.
+      RAINDROP_TOKEN: ${RAINDROP_TOKEN}
+    env_file:
+      - .env
