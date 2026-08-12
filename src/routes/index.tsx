@@ -77,7 +77,7 @@ function App() {
                   rel="noreferrer"
                   className="flex my-auto items-center border transition rounded-xl p-2 text-(--sea-ink-soft) hover:bg-(--link-bg-hover) hover:text-(--sea-ink) gap-2"
                 >
-                  {iconList.name}
+                  <span className="hidden sm:inline">{iconList.name}</span>
                   {iconList.icon}
                 </a>
               ))}
