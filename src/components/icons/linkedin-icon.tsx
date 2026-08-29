@@ -2,6 +2,8 @@ export default function LinkedinIcon() {
   return (
     <svg
       className="w-5 h-5"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"
