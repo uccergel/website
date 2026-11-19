@@ -89,9 +89,11 @@ src/
 
 ## Bilinen açık işler (2026-11-19 itibarıyla)
 
-- `lint` 2 hata, `tsc` 3 hata, `check` 23 dosyada biçim farkı veriyor; hiç test yok
-  (`npm run test` "dosya bulunamadı" ile çıkar). Ayrıntı ve hatalar:
-  `wiki/gunluk/2026-11-19-ortak-standartlar.md`.
+- `lint` 2 hata (shadcn'den gelen `ui/button.tsx`, `lib/utils.ts`), `tsc` 1 hata
+  (`header.tsx`, davranış etkisi yok), `check` 23 dosyada biçim farkı veriyor.
+  Ayrıntı: `wiki/gunluk/2026-11-19-ortak-standartlar.md`. Raindrop'taki iki hata
+  düzeltildi: `wiki/gunluk/2026-11-19-raindrop-hatalari.md`.
+- Test yalnızca `src/lib/raindrop.test.ts`'te var.
 - `package.json`'da 12 bağımlılık `"latest"` (TanStack paketleri): lock dosyası
   sabitliyor ama `npm install` her seferinde yeni sürüm çekebilir.
 - `.idea/` (JetBrains) ayar dosyaları repoda; `workspace.xml` kişisel çalışma durumu taşır.
