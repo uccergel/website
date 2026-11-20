@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.local)",
+      "Read(./**/.env.production)",
+      "Read(./**/Local.xcconfig)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.p12)",
+      "Read(./**/*.mobileprovision)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean -fd:*)",
+      "Bash(rm -rf:*)",
+      "Bash(docker system prune:*)",
+      "Bash(docker volume rm:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(pip install:*)",
+      "Bash(python manage.py migrate:*)",
+      "Bash(npx prisma migrate:*)",
+      "Bash(docker compose down:*)"
+    ]
+  }
+}

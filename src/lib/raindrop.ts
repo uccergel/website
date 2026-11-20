@@ -53,7 +53,7 @@ const RAINDROP_BASE_URL = 'https://api.raindrop.io/rest/v1'
  * NOT: Bu fonksiyon sadece server-side (loader) içinden çağrılmalı.
  * Token hiçbir zaman client'a gönderilmez.
  */
-async function raindropFetch<T>(endpoint: string): Promise<T> {
+export async function raindropFetch<T>(endpoint: string): Promise<T> {
   const { RAINDROP_TOKEN } = getServerEnv()
 
   const response = await fetch(`${RAINDROP_BASE_URL}${endpoint}`, {
@@ -64,8 +64,15 @@ async function raindropFetch<T>(endpoint: string): Promise<T> {
   })
 
   if (!response.ok) {
+    // Yanıt gövdesi yalnızca sunucu loguna yazılır: server function'dan fırlatılan
+    // hata istemciye kadar taşınır, Raindrop'un ham hata metni oraya sızmamalı.
+    const body = await response.text().catch(() => '')
+    console.error(
+      `[raindrop] ${endpoint} → ${response.status} ${response.statusText}`,
+      body.slice(0, 500)
+    )
     throw new RaindropApiError(
-      `Raindrop API error: ${response.status} - ${response.statusText} - ${body}`,
+      `Raindrop API error: ${response.status} ${response.statusText}`,
       response.status
     )
   }
@@ -130,7 +137,8 @@ export async function getRaindropsByCollections(
 > {
   const results = await Promise.all(
     collections.map(async (collection) => {
-      const items = await getRaindropsByCollection(collection.id)
+      // Server function girdisi `{ data }` ile verilir (validator'a giden değer).
+      const items = await getRaindropsByCollection({ data: collection.id })
       return { ...collection, items }
     })
   )

@@ -120,6 +120,28 @@ async function staticMiddleware(req, next) {
   return new FastResponse(req.method === 'HEAD' ? null : body, { headers })
 }
 
+/**
+ * Canlılık ucu: GET/HEAD /api/healthz → 200 {"status":"ok"}.
+ *
+ * SSR'a uğramaz: "süreç istek alıyor mu" sorusuna cevap verir; Dokploy
+ * healthcheck'i ve dash.uccergel.com bunu yoklar. Sitenin veritabanı yok, bu
+ * yüzden ayrı bir hazırlık ucu (readyz) da yok. Sondaki / ile de çalışır.
+ */
+function healthMiddleware(req, next) {
+  const { pathname } = new URL(req.url)
+  if (pathname !== '/api/healthz' && pathname !== '/api/healthz/') return next()
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    return new FastResponse(null, {
+      status: 405,
+      headers: { Allow: 'GET, HEAD' }
+    })
+  }
+  const body = '{"status":"ok"}'
+  return new FastResponse(req.method === 'HEAD' ? null : body, {
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+  })
+}
+
 // Açılışta tüm client dosyalarını önceden yükle/sıkıştır; böylece ilk ziyaretçi
 // de sıkıştırma maliyetini beklemez.
 async function warmCache(dir) {
@@ -136,9 +158,9 @@ await warmCache(clientDir).catch((err) =>
 serve({
   port,
   hostname,
-  // Önce statik client varlıklarını (JS/CSS/görseller) servis et,
+  // Önce canlılık ucu, sonra statik client varlıkları (JS/CSS/görseller);
   // eşleşme yoksa TanStack Start SSR fetch handler'ına düş.
-  middleware: [staticMiddleware],
+  middleware: [healthMiddleware, staticMiddleware],
   fetch: handler.fetch
 })
 
