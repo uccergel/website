@@ -16,7 +16,8 @@ altında git submodule. Bu dosya yalnızca bu siteye özel kuralları ve standar
   `rehype-highlight`
 - Tailwind v4 (`@tailwindcss/vite`), shadcn/ui (`radix-ui`), `lucide-react`
 - Sunucu: `server.mjs` (srvx) — `dist/server/server.js` handler'ını ve `dist/client`
-  statik dosyalarını servis eder (sıkıştırma, MIME, cache başlıkları burada)
+  statik dosyalarını servis eder (sıkıştırma, MIME, cache başlıkları burada); ayrıca
+  `GET /api/healthz` canlılık ucu (SSR'a uğramaz; Docker healthcheck'i ve dash yoklar)
 - Dağıtım: `Dockerfile` (çok aşamalı, `node:22-alpine`, root olmayan kullanıcı) +
   `docker-compose.yml` → Dokploy (Traefik, `dokploy-network`, container portu 3000)
 
